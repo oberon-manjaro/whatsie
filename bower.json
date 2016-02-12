@@ -2,8 +2,8 @@
   "name": "whatsie.chat",
   "version": "1.0.0",
   "dependencies": {
-    "normalize-css": "=3.0.2",
-    "instantclick": "=3.0.1",
+    "normalize-css": "=3.0.3",
+    "instantclick": "=3.1.0",
     "bourbon": "=3.2.1",
     "neat": "=1.5.1",
     "smooth-scroll": "cferdinandi/smooth-scroll"
