@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title WhatsApp for Desktop
+    title Whatsie
 
     meta(charset='UTF-8')
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
@@ -26,29 +26,29 @@ html
     meta(name='msapplication-TileImage' content='/mstile-144x144.png')
     meta(name='theme-color' content='#009688')
       
-    meta(name='description' content='A simple & beautiful desktop client for WhatsApp. Chat without distractions on any OS.')
-    meta(name='keywords' content='whatsapp, messenger, chat, conversations, desktop, client, download')
+    meta(name='description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on Windows, OS X and Linux.')
+    meta(name='keywords' content='whatsapp, web, messenger, chat, conversations, desktop, client')
 
     meta(name='author' content='aluxian.com')
     meta(name='copyright' content='aluxian.com')
-    meta(name='application-name' content='WhatsApp for Desktop')
+    meta(name='application-name' content='Whatsie')
       
-    meta(property='og:title' content='WhatsApp for Desktop')
-    meta(property='og:description' content='A simple & beautiful desktop client for WhatsApp. Chat without distractions on any OS.')
+    meta(property='og:title' content='Whatsie')
+    meta(property='og:description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on Windows, OS X and Linux.')
     meta(property='og:type' content='website')
-    meta(property='og:image' content='http://whatsapp.com/img/preview.jpg')
-    meta(property='og:url' content='http://whatsapp-desktop.com')
+    meta(property='og:image' content='https://whatsie.chat/img/preview.jpg')
+    meta(property='og:url' content='https://whatsie.chat')
     meta(property='fb:admins' content='100000476749759')
     meta(property='fb:app_id' content='882107051857027')
 
     meta(name='twitter:card' content='summary_large_image')
     meta(name='twitter:creator' content='@aluxian')
-    meta(name='twitter:image' content='http://whatsapp-desktop.com/img/preview.jpg')
+    meta(name='twitter:image' content='https://whatsie.chat/img/preview.jpg')
       
-    link(rel='canonical' href='http://whatsapp-desktop.com')
+    link(rel='canonical' href='https://whatsie.chat')
     script.
       if (document.location.host == 'aluxian.github.io') {
-        document.location = 'http://whatsapp-desktop.com';
+        document.location = 'https://whatsie.chat';
       }
       
     // inject:css
@@ -67,27 +67,119 @@ html
       
     section#header
       .container
-        a.svg.logo(href='/')
-          include ../svg/logo.svg
+        a.logo(href='/')
+          img(src='img/logo.png' alt='Whatsie Logo')
           
-        h1.title WhatsApp for Desktop
-        p.subtitle A simple & beautiful desktop client for WhatsApp.#[br]Chat without distractions on any OS.
+        h1.title Whatsie
+        p.subtitle A simple & beautiful desktop client for WhatsApp Web.#[br]Chat without distractions on Windows, OS X and Linux.
         
-        a.button.filled(href='#download' data-scroll) Coming on June 19
-        span.notice Not an official app. No affiliation with WhatsApp.
+        a.button.filled(href='#download' data-scroll) Download Now
+        span.notice Not an official app. No affiliation with Facebook.
     
-    section.blue#platforms
+    section.inverted#platforms
       .container
         h2.title OS X, Windows & Linux
         
       img.wide(src='img/platforms.jpg' alt='Platforms Preview')
+        
+    section#whatsapp-features
+      .container
+        h2.title Simple. Personal. Real Time Messaging.
+          
+        ul.container
+          li
+            .tile
+              span(class='wafeature wafeature-1' width='120' height='120')
+              p.description Group chats
+          li
+            .tile
+              span(class='wafeature wafeature-2' width='120' height='120')
+              p.description Send photos & videos
+          li
+            .tile
+              span(class='wafeature wafeature-3' width='120' height='120')
+              p.description Share locations
+          
+        a.button.bordered(href='https://www.whatsapp.com/' target='_blank') Explore on whatsapp.com
+        
+    section.inverted#features
+      .container
+        h2.title Integrated with your OS
+        ul.clearfix
+          li
+            span.feature.feature-1
+            .subtitle Launch on#[br]OS startup
+          li
+            span.feature.feature-2
+            .subtitle Native#[br]Notifications
+          li
+            span.feature.feature-3
+            .subtitle Always#[br]Notified
+      
+    section#download
+      .container
+        h2.title Download
+        
+      ul.container
+        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp.dmg')
+          span.osx
+            include ../svg/apple.svg
+            span OS X 10.8+
+            
+        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsAppSetup.exe')
+          span
+            include ../svg/windows.svg
+            span Windows 7+
+      
+      p Linux:
+        
+      ul.container
+        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp_linux32.deb')
+          span
+            include ../svg/debian.svg
+            span DEB x86
+        
+        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp_linux64.deb')
+          span
+            include ../svg/debian.svg
+            span DEB x64
+      
+      ul.container
+        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp_linux32.deb')
+          span
+            include ../svg/debian.svg
+            span RPM x86
+        
+        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp_linux64.deb')
+          span
+            include ../svg/debian.svg
+            span RPM x64
+            
+      p Whatsie works with iOS. Read the #[a.link(target='_blank' href='http://www.whatsapp.com/faq/en/web/28080003') FAQ] for other questions.
     
-    section#featured
+    section.inverted#featured
       .container
         h2.title Featured on
-        p Are you one of the cool kids? Do people call you “press”?#[br]Write about #[i WhatsApp for Desktop] and you might be featured!
+        
+        ul
+          li
+            a(target='_blank' href='http://www.producthunt.com/tech/messenger-for-desktop' title='ProductHunt')
+              include ../svg/producthunt.svg
+          li
+            a(target='_blank' href='https://news.ycombinator.com/item?id=9757555' title='HackerNews')
+              include ../svg/hackernews.svg
     
-    section.blue#contact
+    section#contribute
+      .container
+        h2.title Contribute
+        
+        ul
+          li: a.button.bordered(href='https://github.com/Aluxian/Whatsie') VIEW ON GITHUB
+          li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/issues') ISSUE/REQUEST
+          li: a.button.bordered(href='http://www.aluxian.com/#contact') CONTACT DEV
+          li: a.button.bordered(href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J938CKMNX8K6N' target='_blank') DONATE
+    
+    section.inverted#contact
       .container
         h2.title Keep in touch
         
@@ -97,13 +189,40 @@ html
             input(type='text' name='b_88887250ab1b52820c884a673_6e7c46127a' tabindex='-1')
           input.submit(type='submit' value='SUBSCRIBE' name='subscribe')
         
-        p You’ll receive app updates and news about other apps I create. No spam, I promise.
+        p You’ll receive updates and news about the apps I create. No spam, I promise.
     
-    section#download
+    section#share
       .container
-        h2.title Check back soon!
+        h2.title Spread the love
         
-      p The app will be available for download when it's officially launched, on June 19.
+        ul
+          li.widget.row1
+            .fb-page(data-href='https://www.facebook.com/WhatsAppforDesktopOfficial' data-show-facepile='true' data-show-posts='false')
+              .fb-xfbml-parse-ignore
+                blockquote(cite='https://www.facebook.com/WhatsAppforDesktopOfficial')
+                  a(href='https://www.facebook.com/WhatsAppforDesktopOfficial') WhatsApp for Desktop
+              
+          li.widget.row2
+            a.twitter-share-button(
+              href='https://twitter.com/share'
+              data-size='large'
+              data-url='https://whatsie.chat'
+              data-text='Beautiful #WhatsApp client for Mac, Windows & Linux by @Aluxian'
+              data-related='Aluxian') Tweet
+            
+            a.github-button(
+              href='https://github.com/Aluxian/Whatsie'
+              data-style='mega'
+              data-count-href='/Aluxian/Whatsie/stargazers'
+              data-count-api='/repos/Aluxian/Whatsie#stargazers_count'
+              data-count-aria-label='# stargazers on GitHub'
+              aria-label='Star WhatsApp for Desktop on GitHub') Star
+          
+          li.widget.row3
+            .fb-send(data-href='https://whatsie.chat/')
+            iframe(src='//api.flattr.com/button/view/?uid=Aluxian&button=compact&url=http%3A%2F%2Fwhatsie.chat' title='Flattr' height='20' width='110')
+    
+    .footer-image
     
     footer
       .container
@@ -111,6 +230,9 @@ html
         p.right Created with &hearts; by #[a(href='http://www.aluxian.com/') Alexandru Rosianu]
 
     // inject:js
+    
+    //- IntroBar
+    script var _intro_bar = window._intro_bar || {};(function() {var i,e;i=document.createElement("script"), i.type='text/javascript';i.async=1, i.src="//cdn.introbar.com/js/v1.js", e=document.getElementsByTagName("script")[0], e.parentNode.insertBefore(i,e);})();_intro_bar.account_id = '5587c2b264a72';
 
     //- Twitter
     script.
@@ -120,7 +242,10 @@ html
       }}(document, 'script', 'twitter-wjs');
     
     //- GitHub
-    script(async defer id='github-bjs' src='https://buttons.github.io/buttons.js')
+    script#github-bjs(async defer src='https://buttons.github.io/buttons.js')
+      
+    //- HelloBar
+    script(async src='//my.hellobar.com/2da5357371cb57f5c51b8ea69c4edf11e819c1dd.js')
     
     //- Google Analytics
     script.
@@ -129,5 +254,5 @@ html
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-45600261-7', 'auto');
+      ga('create', 'UA-45600261-10', 'auto');
       ga('send', 'pageview');
