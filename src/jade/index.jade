@@ -29,7 +29,7 @@ html
     meta(name='msapplication-TileImage', content='/mstile-144x144.png')
     meta(name='theme-color', content='#4cba64')
       
-    meta(name='description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on Windows, OS X and Linux.')
+    meta(name='description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on OS X, Windows and Linux.')
     meta(name='keywords' content='whatsapp, web, messenger, chat, conversations, desktop, client')
     meta(name='author' content='aluxian.com')
     meta(name='copyright' content='aluxian.com')
@@ -73,7 +73,7 @@ html
           img(src='img/logo.png' alt='Whatsie Logo')
           
         h1.title Whatsie
-        p.subtitle A simple & beautiful desktop client for WhatsApp Web.#[br]Chat without distractions on Windows, OS X and Linux.
+        p.subtitle A simple & beautiful desktop client for WhatsApp Web.#[br]Chat without distractions on OS X, Windows and Linux.
         
         a.button.filled(href='#download' data-scroll) Download Now
         span.notice Not an official app. No affiliation with Facebook.
@@ -167,7 +167,7 @@ html
             include ../svg/rpm.svg
             span RPM 64-bit
             
-      p Whatsie works with iOS. Read the #[a.link(target='_blank' href='http://www.whatsapp.com/faq/en/web/28080003') FAQ] for other questions.
+      p Whatsie works with iOS. Read the #[a.link(href='#faq') FAQ] for other questions.
     
     section.inverted#featured
       .container
@@ -180,6 +180,42 @@ html
           li
             a(target='_blank' href='https://news.ycombinator.com/item?id=9757555' title='HackerNews')
               include ../svg/hackernews.svg
+      
+    section#faq
+      .container
+        h2.title Frequently Asked Questions
+        
+        .expander
+          a.expander-trigger.expander-hidden(href='javascript:void(0)') Does Whatsie work with iPhones?
+          p.expander-content.
+            Yes, it does!
+            blah blasdg
+            sd
+              fa
+                sdf
+                  asd
+                    f
+        
+        .expander
+          a.expander-trigger.expander-hidden(href='javascript:void(0)') Who created Whatsie?
+          p.expander-content An awesome dev~=!
+    
+    section.inverted#testimonials
+      .container
+        h2.title What users are saying
+        
+        ul.bullets
+          li.bullet
+            p.bullet-content &ldquo;Your Messenger for Desktop and WhatsApp apps absolutely rock! I was so frustrated trying to find something like this, that I was thinking how to do it in XCode myself (I'm not a programmer at all, haha). Thanks!&rdquo;
+            p.bullet-author – Anonymous
+          li.bullet
+            p.bullet-content &ldquo;Hey! I love and am using Messenger for Desktop and WhatsApp for Desktop all the time! They are really super useful!&rdquo;
+            p.bullet-author – Lucas
+          li.bullet
+            p.bullet-content Lorem ipsum sit amet consectetur adipisicing elit. Doloremque, minus, blanditiis, voluptatibus nulla quia ipsam sequi quos iusto aliquam iste magnam accusamus molestias quo illum impedit. Odit officia autem.
+            p.bullet-author – A Lovely User
+          
+        a.button.bordered.typeform-share.link(href='https://aluxian.typeform.com/to/s0wi5P' data-mode='1' target='_blank') Write a review
     
     section#contribute
       .container
@@ -242,6 +278,8 @@ html
         .right-side
           a#rcwidget_ix9az6w9.rcptr(href='http://www.rafflecopter.com/rafl/display/f65bb6940/' rel='nofollow' data-raflid='f65bb6940' data-theme='classic') Rafflecopter giveaway
             script(src='https://widget-prime.rafflecopter.com/launch.js')
+        
+      a.button.filled(href='#download' data-scroll) &#9650; Download Now &#9650;
     
     .footer-image
     
@@ -267,6 +305,9 @@ html
     
     //- Google+  
     script(async defer src='https://apis.google.com/js/platform.js')
+      
+    //- Typeform
+    script (function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()
       
     //- HelloBar
     script(async src='//my.hellobar.com/2da5357371cb57f5c51b8ea69c4edf11e819c1dd.js')

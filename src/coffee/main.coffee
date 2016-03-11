@@ -9,4 +9,10 @@
 
   # Anchor smooth scrolling
   smoothScroll.init()
+
+  # Configure FAQ expander triggers
+  [].forEach.call document.querySelectorAll('.expander-trigger'), (trigger) ->
+    trigger.addEventListener 'click', ->
+      trigger.classList.toggle 'expander-hidden'
+    , false
 )()
