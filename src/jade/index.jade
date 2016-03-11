@@ -7,27 +7,27 @@ html
     meta(http-equiv='X-UA-Compatible', content='IE=edge')
     meta(name='viewport', content='width=device-width, initial-scale=1.0')
       
-    link(rel="apple-touch-icon", sizes="57x57", href="/apple-touch-icon-57x57.png")
-    link(rel="apple-touch-icon", sizes="60x60", href="/apple-touch-icon-60x60.png")
-    link(rel="apple-touch-icon", sizes="72x72", href="/apple-touch-icon-72x72.png")
-    link(rel="apple-touch-icon", sizes="76x76", href="/apple-touch-icon-76x76.png")
-    link(rel="apple-touch-icon", sizes="114x114", href="/apple-touch-icon-114x114.png")
-    link(rel="apple-touch-icon", sizes="120x120", href="/apple-touch-icon-120x120.png")
-    link(rel="apple-touch-icon", sizes="144x144", href="/apple-touch-icon-144x144.png")
-    link(rel="apple-touch-icon", sizes="152x152", href="/apple-touch-icon-152x152.png")
-    link(rel="apple-touch-icon", sizes="180x180", href="/apple-touch-icon-180x180.png")
-    link(rel="icon", type="image/png", href="/favicon-32x32.png", sizes="32x32")
-    link(rel="icon", type="image/png", href="/favicon-194x194.png", sizes="194x194")
-    link(rel="icon", type="image/png", href="/favicon-96x96.png", sizes="96x96")
-    link(rel="icon", type="image/png", href="/android-chrome-192x192.png", sizes="192x192")
-    link(rel="icon", type="image/png", href="/favicon-16x16.png", sizes="16x16")
-    link(rel="manifest", href="/manifest.json")
-    link(rel="mask-icon", href="/safari-pinned-tab.svg", color="#4cba64")
-    meta(name="apple-mobile-web-app-title", content="Whatsie")
-    meta(name="application-name", content="Whatsie")
-    meta(name="msapplication-TileColor", content="#333333")
-    meta(name="msapplication-TileImage", content="/mstile-144x144.png")
-    meta(name="theme-color", content="#4cba64")
+    link(rel='apple-touch-icon', sizes='57x57', href='/apple-touch-icon-57x57.png')
+    link(rel='apple-touch-icon', sizes='60x60', href='/apple-touch-icon-60x60.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='/apple-touch-icon-72x72.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='/apple-touch-icon-76x76.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='/apple-touch-icon-114x114.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='/apple-touch-icon-120x120.png')
+    link(rel='apple-touch-icon', sizes='144x144', href='/apple-touch-icon-144x144.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='/apple-touch-icon-152x152.png')
+    link(rel='apple-touch-icon', sizes='180x180', href='/apple-touch-icon-180x180.png')
+    link(rel='icon', type='image/png', href='/favicon-32x32.png', sizes='32x32')
+    link(rel='icon', type='image/png', href='/favicon-194x194.png', sizes='194x194')
+    link(rel='icon', type='image/png', href='/favicon-96x96.png', sizes='96x96')
+    link(rel='icon', type='image/png', href='/android-chrome-192x192.png', sizes='192x192')
+    link(rel='icon', type='image/png', href='/favicon-16x16.png', sizes='16x16')
+    link(rel='manifest', href='/manifest.json')
+    link(rel='mask-icon', href='/safari-pinned-tab.svg', color='#4cba64')
+    meta(name='apple-mobile-web-app-title', content='Whatsie')
+    meta(name='application-name', content='Whatsie')
+    meta(name='msapplication-TileColor', content='#333333')
+    meta(name='msapplication-TileImage', content='/mstile-144x144.png')
+    meta(name='theme-color', content='#4cba64')
       
     meta(name='description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on Windows, OS X and Linux.')
     meta(name='keywords' content='whatsapp, web, messenger, chat, conversations, desktop, client')
@@ -36,7 +36,7 @@ html
     meta(name='application-name' content='Whatsie')
       
     meta(property='og:title' content='Whatsie')
-    meta(property='og:description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on Windows, OS X and Linux.')
+    meta(property='og:description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on Windows and Linux.')
     meta(property='og:type' content='website')
     meta(property='og:image' content='https://whatsie.chat/img/preview.jpg')
     meta(property='og:url' content='https://whatsie.chat')
@@ -86,7 +86,7 @@ html
         
     section#whatsapp-features
       .container
-        h2.title Simple. Personal. Real Time Messaging.
+        h2.title Everything you love about WhatsApp...
           
         ul.container
           li
@@ -106,7 +106,7 @@ html
         
     section.inverted#features
       .container
-        h2.title Integrated with your OS
+        h2.title ...now perfectly integrated with your OS
         ul.clearfix
           li
             span.feature.feature-1
@@ -117,18 +117,28 @@ html
           li
             span.feature.feature-3
             .subtitle Always#[br]Notified
+        
+      //.
+        features
+          
+        launch on startup
+        native notifications, with reply (OS X)
+        themes
+        tray icon
+        dock/taskbar badge
+        spell checker and auto correct
       
     section#download
       .container
         h2.title Download
         
       ul.container
-        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp.dmg')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/darwin/latest')
           span.osx
             include ../svg/apple.svg
             span OS X 10.8+
             
-        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsAppSetup.exe')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/win32/latest')
           span
             include ../svg/windows.svg
             span Windows 7+
@@ -136,26 +146,26 @@ html
       p Linux:
         
       ul.container
-        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp_linux32.deb')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=i386')
           span
             include ../svg/debian.svg
-            span DEB x86
+            span DEB 32-bit
         
-        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp_linux64.deb')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=amd64')
           span
             include ../svg/debian.svg
-            span DEB x64
+            span DEB 64-bit
       
       ul.container
-        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp_linux32.deb')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=i386')
           span
-            include ../svg/debian.svg
-            span RPM x86
+            include ../svg/rpm.svg
+            span RPM 32-bit
         
-        li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/releases/download/v1.1.0/UnofficialWhatsApp_linux64.deb')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=x86_64')
           span
-            include ../svg/debian.svg
-            span RPM x64
+            include ../svg/rpm.svg
+            span RPM 64-bit
             
       p Whatsie works with iOS. Read the #[a.link(target='_blank' href='http://www.whatsapp.com/faq/en/web/28080003') FAQ] for other questions.
     
@@ -165,7 +175,7 @@ html
         
         ul
           li
-            a(target='_blank' href='http://www.producthunt.com/tech/messenger-for-desktop' title='ProductHunt')
+            a(target='_blank' href='https://www.producthunt.com/tech/whatsapp-for-desktop' title='ProductHunt')
               include ../svg/producthunt.svg
           li
             a(target='_blank' href='https://news.ycombinator.com/item?id=9757555' title='HackerNews')
@@ -175,17 +185,20 @@ html
       .container
         h2.title Contribute
         
-        ul
-          li: a.button.bordered(href='https://github.com/Aluxian/Whatsie') VIEW ON GITHUB
-          li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/issues') ISSUE/REQUEST
-          li: a.button.bordered(href='http://www.aluxian.com/#contact') CONTACT DEV
-          li: a.button.bordered(href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=J938CKMNX8K6N' target='_blank') DONATE
+        ul.lc
+          li: a.button.bordered(href='https://github.com/Aluxian/Whatsie' target='_blank') VIEW ON GITHUB
+          li: a.button.bordered(href='https://github.com/Aluxian/Whatsie/issues' target='_blank') ISSUE/REQUEST
+          li: a.button.bordered(href='http://www.aluxian.com/#contact' target='_blank') CONTACT DEV
+        ul.rc
+          li: a.button.bordered(href='https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=4YVCUBK2QJKBL' target='_blank') DONATE PAYPAL
+          li: a.button.bordered(href='https://www.coinbase.com/Aluxian' target='_blank') DONATE BITCOIN
+          li: a.button.bordered(href='https://flattr.com/submit/auto?fid=9r0lvn&url=https%3A%2F%2Fwhatsie.chat' target='_blank') FLATTR
     
     section.inverted#contact
       .container
         h2.title Keep in touch
         
-        form(action='//aluxian.us7.list-manage.com/subscribe/post?u=88887250ab1b52820c884a673&amp;id=6e7c46127a' method='post' name='mc-embedded-subscribe-form' target='_blank')
+        form(action='//aluxian.us7.list-manage.com/subscribe/post?u=88887250ab1b52820c884a673&amp;id=f58721e7c0' method='post' name='mc-embedded-subscribe-form' target='_blank')
           input.email(type='email' name='EMAIL' placeholder='you@awesome.com' required)
           div(style='position: absolute; left: -5000px;')
             input(type='text' name='b_88887250ab1b52820c884a673_6e7c46127a' tabindex='-1')
@@ -195,21 +208,23 @@ html
     
     section#share
       .container
-        h2.title Spread the love
+        h2.title Spread the love... and WIN!
         
-        ul
+        p.info Let's make this app popular again! The more you share, the greater the chance to earn a prize 🎉
+        
+        ul.left-side
           li.widget.row1
-            .fb-page(data-href='https://www.facebook.com/WhatsAppforDesktopOfficial' data-show-facepile='true' data-show-posts='false')
+            .fb-page(data-href='https://www.facebook.com/Whatsie' data-show-facepile='true' data-show-posts='false')
               .fb-xfbml-parse-ignore
-                blockquote(cite='https://www.facebook.com/WhatsAppforDesktopOfficial')
-                  a(href='https://www.facebook.com/WhatsAppforDesktopOfficial') WhatsApp for Desktop
+                blockquote(cite='https://www.facebook.com/Whatsie')
+                  a(href='https://www.facebook.com/Whatsie') Whatsie
               
           li.widget.row2
             a.twitter-share-button(
               href='https://twitter.com/share'
               data-size='large'
               data-url='https://whatsie.chat'
-              data-text='Beautiful #WhatsApp client for Mac, Windows & Linux by @Aluxian'
+              data-text='Beautiful #WhatsApp Web client for Mac, Windows & Linux by @Aluxian'
               data-related='Aluxian') Tweet
             
             a.github-button(
@@ -218,23 +233,27 @@ html
               data-count-href='/Aluxian/Whatsie/stargazers'
               data-count-api='/repos/Aluxian/Whatsie#stargazers_count'
               data-count-aria-label='# stargazers on GitHub'
-              aria-label='Star WhatsApp for Desktop on GitHub') Star
+              aria-label='Star Whatsie on GitHub') Star
           
           li.widget.row3
             .fb-send(data-href='https://whatsie.chat/')
-            iframe(src='//api.flattr.com/button/view/?uid=Aluxian&button=compact&url=http%3A%2F%2Fwhatsie.chat' title='Flattr' height='20' width='110')
+            .g-plusone(data-size='medium' data-annotation='inline' data-width='120')
+        
+        .right-side
+          a#rcwidget_ix9az6w9.rcptr(href='http://www.rafflecopter.com/rafl/display/f65bb6940/' rel='nofollow' data-raflid='f65bb6940' data-theme='classic') Rafflecopter giveaway
+            script(src='https://widget-prime.rafflecopter.com/launch.js')
     
     .footer-image
     
     footer
       .container
-        p.left No affiliation with WhatsApp. Some images taken from #[a(href='https://www.whatsapp.com/') whatsapp.com]
+        p.left No affiliation with WhatsApp. Some images taken from #[a(href='https://www.whatsapp.com/' target='_blank') whatsapp.com]
         p.right Created with &hearts; by #[a(href='http://www.aluxian.com/') Alexandru Rosianu]
 
     // inject:js
-    
+
     //- IntroBar
-    script var _intro_bar = window._intro_bar || {};(function() {var i,e;i=document.createElement("script"), i.type='text/javascript';i.async=1, i.src="//cdn.introbar.com/js/v1.js", e=document.getElementsByTagName("script")[0], e.parentNode.insertBefore(i,e);})();_intro_bar.account_id = '5587c2b264a72';
+    script var _intro_bar = window._intro_bar || {};(function() {var i,e;i=document.createElement('script'), i.type='text/javascript';i.async=1, i.src='//cdn.introbar.com/js/v1.js', e=document.getElementsByTagName('script')[0], e.parentNode.insertBefore(i,e);})();_intro_bar.account_id = '5587c2b264a72';
 
     //- Twitter
     script.
@@ -245,9 +264,15 @@ html
     
     //- GitHub
     script#github-bjs(async defer src='https://buttons.github.io/buttons.js')
+    
+    //- Google+  
+    script(async defer src='https://apis.google.com/js/platform.js')
       
     //- HelloBar
     script(async src='//my.hellobar.com/2da5357371cb57f5c51b8ea69c4edf11e819c1dd.js')
+      
+    //- AddThis
+    script(async src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f3e264b364b047d')
     
     //- Google Analytics
     script.
@@ -256,5 +281,5 @@ html
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-      ga('create', 'UA-45600261-10', 'auto');
+      ga('create', 'UA-45600261-7', 'auto');
       ga('send', 'pageview');
