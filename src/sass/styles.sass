@@ -75,6 +75,10 @@ section
       &:hover, &:focus
         background: rgba(255, 255, 255, 0.1)
 
+    a.link
+      color: white
+      border-color: white
+
   &:not(.inverted) a.link
     color: $brand-color
 
@@ -198,8 +202,11 @@ section#featured
   svg
     height: 42px
 
-  p
-    font-size: 18px
+  p.appear-here
+    padding-top: 70px
+
+    @include media($mobile)
+      padding-top: 40px
 
 section#faq
   .expander
