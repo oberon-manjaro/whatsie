@@ -203,14 +203,13 @@ section#faq
 
     .expander-trigger
       @include user-select(none)
-      border-bottom: 1px solid #DDD
+      border-bottom: 1px solid #EEE
       cursor: pointer
       display: block
-      margin-bottom: 20px
+      margin-bottom: 10px
       color: $brand-color
       text-align: left
       padding-bottom: 6px
-      padding-top: 5px
 
       &:before
         font-size: 0.7em
@@ -218,6 +217,7 @@ section#faq
         margin-right: 0.5em
 
     .expander-content
+      margin-top: 0
       line-height: 1.5em
       text-align: left
 
@@ -229,8 +229,12 @@ section#faq
     .expander-hidden + .expander-content
       display: none
 
+  .expander + .expander
+    .expander-trigger
+      padding-top: 15px
+
 section#testimonials
-  .bullets
+  .reviews
     @include display(flex)
     @include flex-wrap(wrap)
     margin-bottom: 20px
@@ -238,27 +242,39 @@ section#testimonials
     overflow: auto
     padding: 0
 
-    .bullet
+    .review
       @include flex-basis(20em)
       @include flex-grow(1)
+      quotes: "“" "”" "‘" "’"
 
-    .bullet-content
+    .content
+      @include transition(opacity 0.25s)
       line-height: 1.3
       margin-top: 30px
       margin-bottom: 0
       font-style: italic
       padding: 0 20px
+      opacity: 1
 
-    .bullet-author
+      &:before
+        content: open-quote
+      &:after
+        content: close-quote
+
+    .author
+      @include transition(opacity 0.25s)
       margin-bottom: 20px
       font-weight: bold
       font-style: italic
       padding-left: 30px
       float: left
+      opacity: 1
+
+      &:before
+        content: "~ "
 
   a.button.bordered.typeform-share
-    margin-top: 0
-    margin-bottom: 0
+    margin-bottom: 5px
 
 section#contribute
   .lc, .rc
@@ -326,8 +342,6 @@ section#contact
       border-bottom-right-radius: 2px
 
 section#share
-  padding-bottom: 50px
-
   li.widget
     margin-bottom: 30px
 

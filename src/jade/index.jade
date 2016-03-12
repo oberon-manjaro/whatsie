@@ -185,35 +185,43 @@ html
       .container
         h2.title Frequently Asked Questions
         
-        .expander
-          a.expander-trigger.expander-hidden(href='javascript:void(0)') Does Whatsie work with iPhones?
-          p.expander-content.
-            Yes, it does!
-            blah blasdg
-            sd
-              fa
-                sdf
-                  asd
-                    f
+        -
+          var faq = [
+            {
+              q: 'Does Whatsie work with iPhones?',
+              a: 'Yes, it does! <i>WhatsApp</i> solved the compatibility problem a few months ago.'
+            }, {
+              q: 'How does Whatsie work under the hood?',
+              a: '<i>Whatsie</i> is a native desktop app built on <a class="link" href="http://electron.atom.io/" target="_blank">Electron</a>. Basically, it\'s a wrapper for <a class="link" href="https://web.whatsapp.com/" target="_blank">WhatsApp Web</a> with additional features such as themes and better integration with your operating system.'
+            }, {
+              q: 'Is Whatsie secure?',
+              a: 'Using <i>Whatsie</i> is as safe and secure as using the official <a class="link" href="https://web.whatsapp.com/" target="_blank">WhatsApp Web</a> app. In fact, <i>Whatsie</i> itself uses <i>WhatsApp Web</i>, so all your messages and other account data are not handled by my app, but by the official <i>WhatsApp Web</i> client.'
+            }, {
+              q: 'Who created Whatsie?',
+              a: '<i>Whatsie</i> was created by <a class="link" href="http://www.aluxian.com/" target="_blank">Alexandru Rosianu</a> – a young, awesome developer from Romania. Yes, I do like to compliment myself.'
+            }
+          ];
         
-        .expander
-          a.expander-trigger.expander-hidden(href='javascript:void(0)') Who created Whatsie?
-          p.expander-content An awesome dev~=!
+        ul
+          each item in faq
+            .expander
+              a.expander-trigger.expander-hidden(href='javascript:void(0)') #{item.q}
+              p.expander-content !{item.a}
     
     section.inverted#testimonials
       .container
         h2.title What users are saying
         
-        ul.bullets
-          li.bullet
-            p.bullet-content &ldquo;Your Messenger for Desktop and WhatsApp apps absolutely rock! I was so frustrated trying to find something like this, that I was thinking how to do it in XCode myself (I'm not a programmer at all, haha). Thanks!&rdquo;
-            p.bullet-author – Anonymous
-          li.bullet
-            p.bullet-content &ldquo;Hey! I love and am using Messenger for Desktop and WhatsApp for Desktop all the time! They are really super useful!&rdquo;
-            p.bullet-author – Lucas
-          li.bullet
-            p.bullet-content Lorem ipsum sit amet consectetur adipisicing elit. Doloremque, minus, blanditiis, voluptatibus nulla quia ipsam sequi quos iusto aliquam iste magnam accusamus molestias quo illum impedit. Odit officia autem.
-            p.bullet-author – A Lovely User
+        ul.reviews
+          li.review
+            p.content Your Messenger for Desktop and WhatsApp apps absolutely rock! I was so frustrated trying to find something like this, that I was thinking how to do it in XCode myself (I'm not a programmer at all, haha). Thanks!
+            p.author Anonymous
+          li.review
+            p.content Hey! I love and am using Messenger for Desktop and WhatsApp for Desktop all the time! They are really super useful!
+            p.author Lucas
+          li.review
+            p.content I started using WhatsApp a long time ago and I've looked for a desktop app since then. I used the Web version for a while, but I wanted something that didn't depend on my browser. Whatsie was exactly what I needed.
+            p.author A Lovely User
           
         a.button.bordered.typeform-share.link(href='https://aluxian.typeform.com/to/s0wi5P' data-mode='1' target='_blank') Write a review
     
@@ -278,8 +286,6 @@ html
         .right-side
           a#rcwidget_ix9az6w9.rcptr(href='http://www.rafflecopter.com/rafl/display/f65bb6940/' rel='nofollow' data-raflid='f65bb6940' data-theme='classic') Rafflecopter giveaway
             script(src='https://widget-prime.rafflecopter.com/launch.js')
-        
-      a.button.filled(href='#download' data-scroll) &#9650; Download Now &#9650;
     
     .footer-image
     
