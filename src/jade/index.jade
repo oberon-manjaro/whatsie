@@ -110,23 +110,18 @@ html
         ul.clearfix
           li
             span.feature.feature-1
-            .subtitle Launch on#[br]OS startup
+            .subtitle Launch on OS startup
           li
             span.feature.feature-2
-            .subtitle Native#[br]Notifications
+            .subtitle Native Notifications#[br](with reply on OS X)
           li
             span.feature.feature-3
-            .subtitle Always#[br]Notified
+            .subtitle Dock Badge & Tray Icons
         
       //.
-        features
-          
-        launch on startup
-        native notifications, with reply (OS X)
-        themes
-        tray icon
-        dock/taskbar badge
-        spell checker and auto correct
+        Themes
+        Spell Checker
+        Auto Correct
       
     section#download
       .container
@@ -190,24 +185,36 @@ html
         -
           var faq = [
             {
+              q: 'Is Whatsie secure?',
+              a: 'Using <i>Whatsie</i> is as safe and secure as using the official <a class="link" href="https://web.whatsapp.com/" target="_blank">WhatsApp Web</a> app. In fact, <i>Whatsie</i> itself uses <i>WhatsApp Web</i>, so all your messages and other account data are not handled by my app, but by the official <i>WhatsApp Web</i> client.'
+            }, {
               q: 'Does Whatsie work with iPhones?',
               a: 'Yes, it does! <i>WhatsApp</i> solved the compatibility problem with iOS devices in August 2015.'
             }, {
               q: 'How does Whatsie work under the hood?',
               a: '<i>Whatsie</i> is a native desktop app built on <a class="link" href="http://electron.atom.io/" target="_blank">Electron</a>. Basically, it\'s a wrapper for <a class="link" href="https://web.whatsapp.com/" target="_blank">WhatsApp Web</a> with additional features such as themes and better integration with your operating system.'
             }, {
-              q: 'Is Whatsie secure?',
-              a: 'Using <i>Whatsie</i> is as safe and secure as using the official <a class="link" href="https://web.whatsapp.com/" target="_blank">WhatsApp Web</a> app. In fact, <i>Whatsie</i> itself uses <i>WhatsApp Web</i>, so all your messages and other account data are not handled by my app, but by the official <i>WhatsApp Web</i> client.'
+              q: 'What happened to <i>WhatsApp for Desktop</i>?',
+              a: '<i>Whatsie</i> is the successor of <i>WhatsApp for Desktop</i>, which was scrapped and sold for parts (kidding). I built <i>Whatsie</i> from the ground up using <i>Electron</i>, the more powerful and battery efficient alternative to <i>NW.js</i>, so it\'s now faster and better than the old app.'
+            }, {
+              q: 'How do I get rid of <i>WhatsApp for Desktop</i>?',
+              a: '<b>OS X</b>: Move the app into Trash or use <a class="link" href="https://freemacsoft.net/appcleaner/" target="_blank">AppCleaner</a> which will also delete your preferences, cache and other temporary files.<br><b>Windows</b>: Follow <a class="link" href="https://github.com/Aluxian/WhatsApp-Desktop/wiki/How-to-uninstall-(Windows)" target="_blank">these steps</a>.<br><b>Linux</b>: Use your package manager to remove <i>Whatsie</i>. Also delete this folder: <i>~/.config/whatsappfordesktop</i>.'
+            }, {
+              q: 'How can I uninstall/remove <i>Whatsie</i>?',
+              a: '<b>OS X</b>: Move the app into Trash or use <a class="link" href="https://freemacsoft.net/appcleaner/" target="_blank">AppCleaner</a> which will also delete your preferences, cache and other temporary files.<br><b>Windows (portable)</b>: Just delete the app folder. <i>Whatsie</i> didn\'t create any other files.<br><b>Windows (installer)</b>: Go to <i>Control Panel &gt; Change or remove a program</i>, then select <i>Whatsie</i> and click <i>Uninstall</i>.<br><b>Linux</b>: Use your package manager to remove <i>Whatsie</i>.'
+            }, {
+              q: 'Will <i>Whatsie</i> eat my battery or RAM?',
+              a: 'Literally, no. Virtually, yes, just a bit. However, it\'s much more efficient than the old <i>WhatsApp for Desktop</i>. On my Mac, <i>Whatsie</i> uses around 240MB of RAM and just 3% CPU while idle.'
             }, {
               q: 'Who created Whatsie?',
-              a: '<i>Whatsie</i> was created by <a class="link" href="http://www.aluxian.com/" target="_blank">Alexandru Rosianu</a> – a young, awesome developer from Romania. Yes, I do like to compliment myself.'
+              a: '<i>Whatsie</i> was created by <a class="link" href="http://www.aluxian.com/" target="_blank">Alexandru Rosianu</a> – a young, awesome developer from Romania. Yes, I do like to compliment myself. <a class="link" href="http://blog.aluxian.com/" target="_blank">Follow my blog!</a>'
             }
           ];
         
         ul
           each item in faq
             .expander
-              a.expander-trigger.expander-hidden(href='javascript:void(0)') #{item.q}
+              a.expander-trigger.expander-hidden(href='javascript:void(0)') !{item.q}
               p.expander-content !{item.a}
     
     section.inverted#testimonials
@@ -294,7 +301,7 @@ html
     footer
       .container
         p.left No affiliation with WhatsApp. Some images taken from #[a(href='https://www.whatsapp.com/' target='_blank') whatsapp.com]
-        p.right Created with &hearts; by #[a(href='http://www.aluxian.com/') Alexandru Rosianu]
+        p.right Coded with &hearts; by #[a(href='http://www.aluxian.com/') Alexandru Rosianu]
 
     // inject:js
 
