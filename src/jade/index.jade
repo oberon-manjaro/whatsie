@@ -38,14 +38,14 @@ html
     meta(property='og:title' content='Whatsie')
     meta(property='og:description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on Windows and Linux.')
     meta(property='og:type' content='website')
-    meta(property='og:image' content='https://whatsie.chat/img/preview.jpg')
+    meta(property='og:image' content='https://whatsie.chat/img/preview.png')
     meta(property='og:url' content='https://whatsie.chat')
     meta(property='fb:admins' content='100000476749759')
     meta(property='fb:app_id' content='882107051857027')
 
     meta(name='twitter:card' content='summary_large_image')
     meta(name='twitter:creator' content='@aluxian')
-    meta(name='twitter:image' content='https://whatsie.chat/img/preview.jpg')
+    meta(name='twitter:image' content='https://whatsie.chat/img/preview.png')
       
     link(rel='canonical' href='https://whatsie.chat')
     script.
@@ -110,18 +110,24 @@ html
         ul.clearfix
           li
             span.feature.feature-1
-            .subtitle Launch on OS startup
+            .subtitle 
           li
             span.feature.feature-2
-            .subtitle Native Notifications#[br](with reply on OS X)
+            .subtitle 
           li
             span.feature.feature-3
-            .subtitle Dock Badge & Tray Icons
+            .subtitle 
         
       //.
+        Launch on OS startup
+        Native Notifications (with reply on OS X)
+        Dock Badge
+        Tray Icon
         Themes
         Spell Checker
         Auto Correct
+        Mini Mode
+        Keyboard shortcuts
       
     section#download
       .container
@@ -190,6 +196,9 @@ html
             }, {
               q: 'Does Whatsie work with iPhones?',
               a: 'Yes, it does! <i>WhatsApp</i> solved the compatibility problem with iOS devices in August 2015.'
+            }, {
+              q: 'What keyboard shortcuts can I use?',
+              a: 'Most of the items in the menu have a keyboard shortcut assigned, shown on the right side of each item. Also, to change conversations, you can use <i>Ctrl+Up</i> (<i>Cmd+Up</i>) and <i>Ctrl+Down</i> (<i>Cmd+Down</i>) or <i>Ctrl+Tab</i> and <i>Ctrl+Shift+Tab</i>.'
             }, {
               q: 'How does Whatsie work under the hood?',
               a: '<i>Whatsie</i> is a native desktop app built on <a class="link" href="http://electron.atom.io/" target="_blank">Electron</a>. Basically, it\'s a wrapper for <a class="link" href="https://web.whatsapp.com/" target="_blank">WhatsApp Web</a> with additional features such as themes and better integration with your operating system.'
