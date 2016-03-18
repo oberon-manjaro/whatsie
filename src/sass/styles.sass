@@ -125,6 +125,61 @@ section#header
 section#platforms
   padding-bottom: 70px
 
+  @include media($desktop)
+    .images
+      .ss
+        img
+          position: relative
+
+        &.left
+          @include span-columns(4)
+          img
+            width: 100%
+            z-index: 20
+            top: 40px
+            right: -30%
+
+        &.center
+          @include span-columns(4)
+          img
+            width: 140%
+            z-index: 30
+            left: -20%
+
+        &.right
+          @include span-columns(4)
+          img
+            width: 100%
+            z-index: 10
+            top: 40px
+            left: -30%
+
+  @include media($mobile)
+    .images
+      margin-bottom: 30px
+      padding: 0 30px
+
+      .ss
+        img
+          width: 100%
+
+        &.left
+          img
+            padding-left: 32px
+
+        &.center
+          margin-top: -50%
+          img
+            width: 108%
+            margin-left: -3%
+            padding-right: 30px
+            padding-left: 5px
+
+        &.right
+          margin-top: -50%
+          img
+            padding-right: 40px
+
 section#whatsapp-features
   @include media($mobile)
     li, .tile

@@ -66,6 +66,7 @@ gulp.task 'static', ['build'], (next) ->
       next()
 
 gulp.task 'watch', ['static'], ->
+  $.livereload.listen()
   gulp.watch './src/sass/*.sass', ['sass', 'inject']
   gulp.watch './src/jade/*.jade', ['jade', 'inject']
   gulp.watch './src/coffee/*.coffee', ['coffee', 'inject']
