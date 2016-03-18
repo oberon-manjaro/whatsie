@@ -6,6 +6,8 @@ $font-thin: 'HelveticaNeue-Thin', 'Helvetica Neue Light', 'Helvetica Neue', 'Seg
 $font-normal: 'Helvetica Neue', 'Segoe UI', Helvetica, Arial, 'Lucida Grande', sans-serif
 $mobile: new-breakpoint(max-width 779px)
 $desktop: new-breakpoint(min-width 780px)
+$mobile2: new-breakpoint(max-width 630px)
+$mobile3: new-breakpoint(max-width 979px)
 
 *
   -webkit-box-sizing: border-box
@@ -234,6 +236,8 @@ section#download
     max-width: 440px
   li
     @include span-columns(6)
+    @include media($mobile2)
+      @include span-columns(12)
     padding: 0 5px 20px
 
   a
@@ -346,13 +350,19 @@ section#testimonials
 section#contribute
   .lc, .rc
     @include span-columns(4)
-    @include media($mobile)
+    @include media($mobile2)
       @include span-columns(12)
+
   .lc
     @include media($desktop)
       @include shift(2)
-  .rc
     @include media($mobile)
+      @include shift(2)
+    @include media($mobile2)
+      @include shift(0)
+
+  .rc
+    @include media($mobile2)
       li:first-child
         margin-top: 30px
 
@@ -361,12 +371,12 @@ section#contribute
       margin-top: 10px
       margin-bottom: 20px
       min-width: 180px
-      @include media($mobile)
+      @include media($mobile2)
         margin: 0
 
   li + li
     a
-      @include media($mobile)
+      @include media($mobile2)
         margin-top: 20px
 
 section#contact
@@ -409,6 +419,8 @@ section#contact
       border-bottom-right-radius: 2px
 
 section#share
+  overflow-x: hidden
+
   li.widget
     margin-bottom: 30px
 
@@ -459,9 +471,12 @@ footer
     font-size: 14px
     color: rgba(255, 255, 255, 0.4)
 
+  @include media($mobile3)
+    padding-bottom: 48px
+
   @include media($mobile)
     text-align: center
-    padding: 16px 0
+    padding: 16px 0 64px
 
     p
       margin: 0
