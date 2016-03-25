@@ -73,7 +73,7 @@ gulp.task 'watch', ['static'], ->
   gulp.watch './src/db/database.json', ['jade', 'inject']
   gulp.watch './src/img/**', ['assets']
   gulp.watch './src/favicons/**', ['assets']
-  gulp.watch './src/svg/**.svg', ['jade', 'inject']
+  gulp.watch './src/svg/**/*.svg', ['jade', 'inject']
   gulp.watch dist + '/**', (file) -> $.livereload.changed file.path
 
 gulp.task 'build', ['sass', 'jade', 'assets', 'coffee', 'inject']

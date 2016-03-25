@@ -203,24 +203,77 @@ section#whatsapp-features
 
   .button
     margin-bottom: 0
-    margin-top: 50px
+    margin-top: 0
+
+  p.small.notice
+    display: block
+    font-size: 10px
+    margin-top: 40px
+    color: transparentize(black, 0.5)
+
+    a
+      color: transparentize($brand-color, 0.3)
+      border-color: transparentize($brand-color, 0.3)
 
 section#features
-  li
-    padding-bottom: 15px
+  .title
+    margin-bottom: 70px
+
+  ul
+    margin-top: 60px
+
+  .desktop, .mobile
     margin-top: 20px
+    padding-bottom: 20px
 
+  .desktop
+    li
+      @include media($desktop)
+        @include span-columns(4)
+    @include media($mobile)
+      display: none
+
+    .feature
+      padding: 20px 10px
+
+  .mobile
     @include media($desktop)
-      @include span-columns(4)
+      display: none
 
-    .subtitle
-      margin: 15px 0 0
-      font-weight: 300
+    li
+      @include media($mobile)
+        @include span-columns(6)
+
+    .feature
+      padding: 20px
+
+  li .feature
+    background: hsla(133,44%,47%,1)
+    border-radius: 5px
+    max-width: 180px
+    display: block
+    margin: auto
+
+    svg
+      width: 50px
+      height: 50px
+      display: block
+      margin: auto
 
     span
-      border-radius: 2px
-      border: 3px solid white
-      box-shadow: rgba(0, 0, 0, 0.2) 0 0 3px 1px
+      display: block
+      padding-top: 20px
+
+  p.small.notice
+    display: block
+    font-size: 10px
+    margin-top: 20px
+    margin-bottom: -10px
+    color: transparentize(white, 0.5)
+
+    a
+      color: transparentize(white, 0.4)
+      border-color: transparentize(white, 0.4)
 
 section#download
   svg
@@ -262,7 +315,9 @@ section#featured
     height: 42px
 
   p.appear-here
+    display: block
     padding-top: 70px
+    margin-bottom: -10px
 
     @include media($mobile)
       padding-top: 40px
@@ -503,20 +558,6 @@ footer
   background-position: $x $y
   width: $width
   height: $height
-
-.feature
-  background-image: url(img/features.png)
-  background-repeat: no-repeat
-  display: inline-block
-
-  &.feature-1
-    +stitches-sprite(0, 0, 230px, 200px)
-
-  &.feature-2
-    +stitches-sprite(-230px, 0, 230px, 200px)
-
-  &.feature-3
-    +stitches-sprite(-460px, 0, 230px, 200px)
 
 .wafeature
   background-image: url(img/wafeatures.jpg)

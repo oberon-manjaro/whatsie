@@ -73,14 +73,14 @@ html
           img(src='img/logo.png' alt='Whatsie Logo')
           
         h1.title Whatsie
-        p.subtitle A simple & beautiful desktop client for WhatsApp Web.#[br]Chat without distractions on OS X, Windows and Linux.
+        p.subtitle A simple &amp; beautiful desktop client for WhatsApp Web.#[br]Chat without distractions on OS X, Windows and Linux.
         
         a.button.filled(href='#download' data-scroll) Download Now
-        span.notice Not an official app. No affiliation with Facebook.
+        span.notice Not an official app. No affiliation with WhatsApp.
     
     section.inverted#platforms
       .container
-        h2.title OS X, Windows & Linux
+        h2.title OS X, Windows &amp; Linux
         
       .images.clearfix
         .ss.clearfix.left
@@ -102,38 +102,77 @@ html
           li
             .tile
               span(class='wafeature wafeature-2' width='120' height='120')
-              p.description Send photos & videos
+              p.description Send photos &amp; videos
           li
             .tile
               span(class='wafeature wafeature-3' width='120' height='120')
               p.description Share locations
           
+        p.small.notice Images taken from #[a.link(href='https://www.whatsapp.com/' title='whatsapp.com' target='_blank') whatsapp.com].
         a.button.bordered(href='https://www.whatsapp.com/' target='_blank') Explore on whatsapp.com
         
     section.inverted#features
       .container
         h2.title ...now perfectly integrated with your OS
-        ul.clearfix
-          li
-            span.feature.feature-1
-            .subtitle 
-          li
-            span.feature.feature-2
-            .subtitle 
-          li
-            span.feature.feature-3
-            .subtitle 
         
-      //.
-        Launch on OS startup
-        Native Notifications (with reply on OS X)
-        Dock Badge
-        Tray Icon
-        Themes
-        Spell Checker
-        Auto Correct
-        Mini Mode
-        Keyboard shortcuts
+        .desktop
+          ul.clearfix.row
+            li
+              .feature
+                include ../svg/features/themes.svg
+                span Themes &amp;#[br]Mini Mode
+            li
+              .feature
+                include ../svg/features/notifications.svg
+                span Native Notifications#[br](with reply on OS X)
+            li
+              .feature
+                include ../svg/features/letter-a.svg
+                span Spell Checker &amp;#[br]Auto Correct
+          ul.clearfix.row
+            li
+              .feature
+                include ../svg/features/keyboard.svg
+                span Keyboard Shortcuts
+            li
+              .feature
+                include ../svg/features/launch.svg
+                span Launch on OS startup
+            li
+              .feature
+                include ../svg/features/update.svg
+                span Automatic Updates
+              
+        .mobile
+          ul.clearfix.row
+            li
+              .feature
+                include ../svg/features/launch.svg
+                span Launch on OS startup
+            li
+              .feature
+                include ../svg/features/notifications.svg
+                span Native Notifications#[br](with reply on OS X)
+          ul.clearfix.row
+            li
+              .feature
+                include ../svg/features/letter-a.svg
+                span Spell Checker &amp;#[br]Auto Correct
+            li
+              .feature
+                include ../svg/features/themes.svg
+                span Themes &amp;#[br]Mini Mode
+          ul.clearfix.row
+            li
+              .feature
+                include ../svg/features/keyboard.svg
+                span Keyboard Shortcuts
+            li
+              .feature
+                include ../svg/features/update.svg
+                span Automatic Updates
+        
+        p.small.notice Icons from #[a.link(href='http://www.flaticon.com' title='Flaticon' target='_blank') Flaticon] licensed under #[a.link(href='http://creativecommons.org/licenses/by/3.0/' title='Creative Commons BY 3.0' target='_blank') CC 3.0 BY].
       
     section#download
       .container
@@ -315,7 +354,7 @@ html
     
     footer
       .container
-        p.left No affiliation with WhatsApp. Some images taken from #[a(href='https://www.whatsapp.com/' target='_blank') whatsapp.com]
+        p.left No affiliation with Facebook or WhatsApp.
         p.right Coded with &hearts; by #[a(href='http://www.aluxian.com/') Alexandru Rosianu]
 
     // inject:js
