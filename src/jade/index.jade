@@ -251,6 +251,9 @@ html
               q: 'How does Whatsie work under the hood?',
               a: '<i>Whatsie</i> is a native desktop app built on <a class="link" href="http://electron.atom.io/" target="_blank">Electron</a>. Basically, it\'s a wrapper for <a class="link" href="https://web.whatsapp.com/" target="_blank">WhatsApp Web</a> with additional features such as themes and better integration with your operating system.'
             }, {
+              q: 'Why do I see so many <i>Whatsie</i> processes in Task Manager?',
+              a: 'That\'s because <i>Whatsie</i> works just like <i>Chrome</i> – it splits itself into several processes, each with their own role. There\'s one process for the app itself, another is in charge with the notifications, another with the menus, there\'s one process for each app window, and so on. This means that the OS can run things in parallel to increase their responsiveness, besides other performance benefits. So it\'s all a good thing!'
+            }, {
               q: 'What happened to <i>WhatsApp for Desktop</i>?',
               a: '<i>Whatsie</i> is the successor of <i>WhatsApp for Desktop</i>, which was scrapped and sold for parts (kidding). I built <i>Whatsie</i> from the ground up using <a class="link" href="http://electron.atom.io/" target="_blank">Electron</a>, the more powerful and battery efficient alternative to <i>NW.js</i>, so it\'s now faster and better than the old app.'
             }, {
