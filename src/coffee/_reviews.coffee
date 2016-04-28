@@ -11,5 +11,25 @@ REVIEWS = [
   }, {
     text: "I'm very happy with Whatsie, it's so fast!",
     author: "A Happy User"
+  }, {
+    text: "It's a great app, smooth and does the job almost perfectly.",
+    author: "TheIvanovization"
+  }, {
+    text: "<3",
+    author: "Ruzzin"
+  }, {
+    text: "There is no app that can replace Whatsie at the moment.",
+    author: "Doyle"
+  }, {
+    text: "So far Whatsie worked just like I wanted, smooth interface with some themes but I would love to see more themes added in the future and some notification sounds. But so far so good, well done!",
+    author: "Subeer",
+    link: "https://twitter.com/subeerlinux"
+  }, {
+    text: "It is a very useful tool because I am usually on my PC a lot and forget opening WhatsApp Web in my browser. I really love the themes and my favorite is Dark.",
+    author: "Rany"
+  }, {
+    text: "Lovely integrates with the system, adds custom themes.",
+    author: "Treviño",
+    link: "http://www.3v1n0.net/"
   }
 ]

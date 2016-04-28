@@ -45,16 +45,13 @@
     lastElemIndex = 0 if lastElemIndex >= reviewElements.length
     lastElemIndex
 
-  ## Assign initial reviews
-  reviewElements.forEach (elem) ->
-    review = REVIEWS[nextReviewIndex()]
-    elem.content.innerHTML = review.text
-    elem.author.innerHTML = review.author
-
   fadeIn = ->
     review = REVIEWS[nextReviewIndex()]
     reviewElem.content.innerHTML = review.text
-    reviewElem.author.innerHTML = review.author
+    if review.link
+      reviewElem.author.innerHTML = '<a class="link" target="_blank" href="' + review.link + '">' + review.author + '</a>'
+    else
+      reviewElem.author.innerHTML = review.author
     reviewElem.content.style.opacity = 1
     reviewElem.author.style.opacity = 1
     setTimeout fadeOut, 2000 + 250
