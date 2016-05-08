@@ -1,0 +1,125 @@
+doctype html
+html
+  head
+    title Privacy Policy – Whatsie
+
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+      
+    link(rel='apple-touch-icon', sizes='57x57', href='/apple-touch-icon-57x57.png')
+    link(rel='apple-touch-icon', sizes='60x60', href='/apple-touch-icon-60x60.png')
+    link(rel='apple-touch-icon', sizes='72x72', href='/apple-touch-icon-72x72.png')
+    link(rel='apple-touch-icon', sizes='76x76', href='/apple-touch-icon-76x76.png')
+    link(rel='apple-touch-icon', sizes='114x114', href='/apple-touch-icon-114x114.png')
+    link(rel='apple-touch-icon', sizes='120x120', href='/apple-touch-icon-120x120.png')
+    link(rel='apple-touch-icon', sizes='144x144', href='/apple-touch-icon-144x144.png')
+    link(rel='apple-touch-icon', sizes='152x152', href='/apple-touch-icon-152x152.png')
+    link(rel='apple-touch-icon', sizes='180x180', href='/apple-touch-icon-180x180.png')
+    link(rel='icon', type='image/png', href='/favicon-32x32.png', sizes='32x32')
+    link(rel='icon', type='image/png', href='/favicon-194x194.png', sizes='194x194')
+    link(rel='icon', type='image/png', href='/favicon-96x96.png', sizes='96x96')
+    link(rel='icon', type='image/png', href='/android-chrome-192x192.png', sizes='192x192')
+    link(rel='icon', type='image/png', href='/favicon-16x16.png', sizes='16x16')
+    link(rel='manifest', href='/manifest.json')
+    link(rel='mask-icon', href='/safari-pinned-tab.svg', color='#4cba64')
+    meta(name='apple-mobile-web-app-title', content='Whatsie')
+    meta(name='application-name', content='Whatsie')
+    meta(name='msapplication-TileColor', content='#333333')
+    meta(name='msapplication-TileImage', content='/mstile-144x144.png')
+    meta(name='theme-color', content='#4cba64')
+
+    // inject:css
+
+  body
+      
+    section.legal.legal-1#header
+      .container
+        a.logo(href='/')
+          img(src='img/logo.png' alt='Whatsie Logo')
+          
+        h1.title Whatsie
+        
+    section.legal.legal-2.inverted
+      .container
+        h2.legal.title Privacy Policy
+    
+    section.legal.legal-3
+      .container
+        .content
+          
+          p Since your communication is a very personal matter, the safety of your data is very important to me. I strive to collect a minimal amount of data, with the sole purpose of improving the App.
+          
+          ol
+            li
+              span.legal-title Definitions
+              
+              p Whatsie is owned by Alexandru Rosianu (referred to as "I" or "Me"). As a customer of this Service you're a "User" or "You" according to this agreement. The App or any Services offered by me will be referred to as "Whatsie", "App" or "Service".
+
+              p This Privacy Policy is included in the #[a.link(href='/terms.html') Terms and Conditions].
+            
+            li
+              span.legal-title Your Data &amp; Messages
+            
+              p Whatsie is very close to a web browser and does not need direct access to WhatsApp's APIs. Whatsie is just a wrapper for the official web app #[a.link(href='https://web.whatsapp.com/') WhatsApp Web], which means that Whatsie does not handle your data directly. Whatsie can store data in two ways: on your computer and remotely on my server(s).
+
+              p Whatsie is open-source, so most parts of the App are public: the source code, the build process, the packaging scripts. You may obtain a copy of the source code and create your own clone of Whatsie, with the ability to have complete control over you data (within the limits of what WhatsApp Web allows). The source code is MIT licensed.
+              
+              ol
+                li
+                  span.legal-title Data stored on your computer
+                  
+                  p This data includes your App preferences, cookies, browser cache and other data that #[a.link(href='https://www.chromium.org/') Chromium], #[a.link(href='http://electron.atom.io/') Electron] or WhatsApp Web might need to store on your computer. This is exactly as it is when using a regular web browser like Safari, Chrome or FireFox.
+
+                  p Whatsie does not directly handle, access, store, or otherwise use your WhatsApp credentials, messages or any other data connected to your WhatsApp account. This happens indirectly, i.e. by the WhatsApp Web instance that runs inside Whatsie.
+              
+                li
+                  span.legal-title Data stored remotely on my server(s)
+                  
+                  p I do not store your account's details, login credentials, messages or any other data remotely on my server(s). This data is stored and handled solely by WhatsApp through WhatsApp Web.
+
+                  p However, I do collect a minimal amount of data with the purpose of improving Whatsie. See sections #[i 2.3. Statistics] and #[i 2.4. Crash Reports].
+                  
+                li
+                  span.legal-title Statistics
+                  
+                  p I do not track the way you interact with WhatsApp or your WhatsApp contacts.
+
+                  p For the purpose of understanding my Users, I anonymously collect data which includes but is not limited to: IP address, Operating System type and version, screen resolution, locale, language, App version. I do not collect any personally identifiable data such as your name or your contacts' names. The data I collect is aggregated.
+                  
+                li
+                  span.legal-title Crash Reports
+                  
+                  p When Whatsie crashes, an error happens or something goes wrong internally, Whatsie reports these crashes to my server(s). These crash reports include data such as (but not only): information about the crash, your Operating System type, App version.
+                  
+                li
+                  span.legal-title Opting Out
+                  
+                  p If you do not wish that I remotely collect data (i.e. statistics and crash reports), you are free to disable this feature from the App menu.
+            
+            li
+              span.legal-title Changes
+            
+              p You can object to any changes by deleting the App within 21 days. Otherwise you agree to those changes.
+              
+            li 
+              span.legal-title Questions
+              
+              p If you have any questions or comments, feel free to write an email to #[a.link(href='mailto:me@aluxian.com') me@aluxian.com].
+              
+          i.last-updated-at The last update to this Privacy Policy was posted on May 6, 2016.
+    
+    footer
+      .container
+        p.left No affiliation with Facebook or WhatsApp. #[a(href='/terms.html') Terms and Conditions]. #[a(href='/privacy.html') Privacy Policy].
+        p.right Coded with &hearts; by #[a(href='http://www.aluxian.com/') Alexandru Rosianu]
+
+    //- Google Analytics
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-45600261-7', 'auto');
+      ga('send', 'pageview');
