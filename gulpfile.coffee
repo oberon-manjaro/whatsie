@@ -51,7 +51,7 @@ gulp.task 'coffee', ->
     .pipe gulp.dest './temp'
 
 gulp.task 'inject', ['sass', 'coffee'], ->
-  gulp.src dist + '/index.html'
+  gulp.src dist + '/*.html'
     .pipe $.replace /<!-- inject:css-->/, '<style>' +
       fs.readFileSync('./temp/styles.css', 'utf8') + '</style>'
     .pipe $.replace /<!-- inject:js-->/, '<script>' +
