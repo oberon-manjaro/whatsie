@@ -75,7 +75,7 @@ html
         h1.title Whatsie
         p.subtitle A simple &amp; beautiful desktop client for WhatsApp Web.#[br]Chat without distractions on OS X, Windows and Linux.
         
-        a.button.filled(href='#download' data-scroll) Download Now
+        a.button.filled(href='#download' data-scroll onclick='gah.downloadNow()') Download Now
         span.notice Not an official app. No affiliation with WhatsApp.
     
     section.inverted#platforms
@@ -179,12 +179,12 @@ html
         h2.title Download
         
       ul.container
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/darwin/latest')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/darwin/latest' onclick='gah.downloadBin("GitHub", "OS X")')
           span.osx
             include ../svg/apple.svg
             span OS X 10.8+
             
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/win32/latest')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/win32/latest' onclick='gah.downloadBin("GitHub", "Windows")')
           span
             include ../svg/windows.svg
             span Windows 7+
@@ -192,23 +192,23 @@ html
       p Linux:
         
       ul.container
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=i386')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=i386' onclick='gah.downloadBin("GitHub", "Linux DEB 32")')
           span
             include ../svg/debian.svg
             span DEB 32-bit
         
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=amd64')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=amd64' onclick='gah.downloadBin("GitHub", "Linux DEB 64")')
           span
             include ../svg/debian.svg
             span DEB 64-bit
       
       ul.container
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=i386')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=i386' onclick='gah.downloadBin("GitHub", "Linux RPM 32")')
           span
             include ../svg/rpm.svg
             span RPM 32-bit
         
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=x86_64')
+        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=x86_64' onclick='gah.downloadBin("GitHub", "Linux RPM 64")')
           span
             include ../svg/rpm.svg
             span RPM 64-bit
