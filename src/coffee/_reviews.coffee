@@ -31,5 +31,9 @@ REVIEWS = [
     text: "Lovely integrates with the system, adds custom themes.",
     author: "Treviño",
     link: "http://www.3v1n0.net/"
+  }, {
+    text: "I like the app because of its simplicity, not to mention the convenience: not having to share my attention with two devices and handle my WhatsApp contacts and my businesses using only my computer. On top of that, it's cross-platform. Recommended.",
+    author: "Rodolfo",
+    link: "https://br.linkedin.com/in/rodolfo-bezerra-6769b8116"
   }
 ]
