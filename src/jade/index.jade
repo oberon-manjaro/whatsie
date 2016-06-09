@@ -179,12 +179,18 @@ html
         h2.title Download
         
       ul.container
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/darwin/latest' onclick='gah.downloadBin("GitHub", "OS X")')
+        li: a.button.bordered.no-uppercase(
+          href='https://updates.whatsie.chat/download/darwin/latest'
+          onclick='gah.downloadBin("GitHub", "OS X")'
+        )
           span.osx
             include ../svg/apple.svg
             span OS X 10.8+
             
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/win32/latest' onclick='gah.downloadBin("GitHub", "Windows")')
+        li: a.button.bordered.no-uppercase(
+          href='https://updates.whatsie.chat/download/win32/latest'
+          onclick='gah.downloadBin("GitHub", "Windows")'
+        )
           span
             include ../svg/windows.svg
             span Windows 7+
@@ -192,28 +198,41 @@ html
       p Linux:
         
       ul.container
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=i386' onclick='gah.downloadBin("GitHub", "Linux DEB 32")')
+        li: a.button.bordered.no-uppercase(
+          href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=i386'
+          onclick='gah.downloadBin("GitHub", "Linux DEB 32")'
+        )
           span
             include ../svg/debian.svg
             span DEB 32-bit
         
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=amd64' onclick='gah.downloadBin("GitHub", "Linux DEB 64")')
+        li: a.button.bordered.no-uppercase(
+          href='https://updates.whatsie.chat/download/linux/latest?pkg=deb&arch=amd64'
+          onclick='gah.downloadBin("GitHub", "Linux DEB 64")'
+        )
           span
             include ../svg/debian.svg
             span DEB 64-bit
       
       ul.container
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=i386' onclick='gah.downloadBin("GitHub", "Linux RPM 32")')
+        li: a.button.bordered.no-uppercase(
+          href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=i386'
+          onclick='gah.downloadBin("GitHub", "Linux RPM 32")'
+        )
           span
             include ../svg/rpm.svg
             span RPM 32-bit
         
-        li: a.button.bordered.no-uppercase(href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=x86_64' onclick='gah.downloadBin("GitHub", "Linux RPM 64")')
+        li: a.button.bordered.no-uppercase(
+          href='https://updates.whatsie.chat/download/linux/latest?pkg=rpm&arch=x86_64'
+          onclick='gah.downloadBin("GitHub", "Linux RPM 64")'
+        )
           span
             include ../svg/rpm.svg
             span RPM 64-bit
             
-      p Whatsie works with iOS. Read the #[a.link(href='#faq' data-scroll) FAQ] for other questions.
+      p.instructions.
+        Read the #[a.link(href='https://github.com/Aluxian/Whatsie#how-to-install') instructions] for alternative installation methods.#[br] Whatsie works with iOS. See the #[a.link(href='#faq' data-scroll) FAQ] for other questions.
     
     section.inverted#featured
       .container
