@@ -39,7 +39,7 @@ gulp.task 'sass', ['jade'], ->
       sourceComments : 'normal'
       errLogToConsole: true
     .pipe $.concat 'styles.css'
-    .pipe $.if live, $.cssmin()
+    .pipe $.if live, $.cleanCss()
     .pipe gulp.dest './temp'
 
 gulp.task 'coffee', ->
