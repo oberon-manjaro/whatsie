@@ -68,7 +68,7 @@ gulp.task 'static', ['build'], (next) ->
       next()
 
 gulp.task 'watch', ['static'], ->
-  $.livereload.listen()
+  $.refresh.listen()
   gulp.watch './src/sass/*.sass', ['sass', 'inject']
   gulp.watch './src/jade/*.jade', ['jade', 'inject']
   gulp.watch './src/coffee/*.coffee', ['coffee', 'inject']
@@ -76,7 +76,7 @@ gulp.task 'watch', ['static'], ->
   gulp.watch './src/img/**', ['assets']
   gulp.watch './src/favicons/**', ['assets']
   gulp.watch './src/svg/**/*.svg', ['jade', 'inject']
-  gulp.watch dist + '/**', (file) -> $.livereload.changed file.path
+  gulp.watch dist + '/**', (file) -> $.refresh.changed file.path
 
 gulp.task 'build', ['sass', 'jade', 'assets', 'coffee', 'inject']
 gulp.task 'default', ['watch']
