@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -ev
 
 git add .
 git commit -m "$1"
