@@ -3,70 +3,15 @@ html
   head
     title Whatsie – WhatsApp for Desktop
 
-    meta(charset='UTF-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-      
-    link(rel='apple-touch-icon', sizes='57x57', href='/apple-touch-icon-57x57.png')
-    link(rel='apple-touch-icon', sizes='60x60', href='/apple-touch-icon-60x60.png')
-    link(rel='apple-touch-icon', sizes='72x72', href='/apple-touch-icon-72x72.png')
-    link(rel='apple-touch-icon', sizes='76x76', href='/apple-touch-icon-76x76.png')
-    link(rel='apple-touch-icon', sizes='114x114', href='/apple-touch-icon-114x114.png')
-    link(rel='apple-touch-icon', sizes='120x120', href='/apple-touch-icon-120x120.png')
-    link(rel='apple-touch-icon', sizes='144x144', href='/apple-touch-icon-144x144.png')
-    link(rel='apple-touch-icon', sizes='152x152', href='/apple-touch-icon-152x152.png')
-    link(rel='apple-touch-icon', sizes='180x180', href='/apple-touch-icon-180x180.png')
-    link(rel='icon', type='image/png', href='/favicon-32x32.png', sizes='32x32')
-    link(rel='icon', type='image/png', href='/favicon-194x194.png', sizes='194x194')
-    link(rel='icon', type='image/png', href='/favicon-96x96.png', sizes='96x96')
-    link(rel='icon', type='image/png', href='/android-chrome-192x192.png', sizes='192x192')
-    link(rel='icon', type='image/png', href='/favicon-16x16.png', sizes='16x16')
-    link(rel='manifest', href='/manifest.json')
-    link(rel='mask-icon', href='/safari-pinned-tab.svg', color='#4cba64')
-    meta(name='apple-mobile-web-app-title', content='Whatsie')
-    meta(name='application-name', content='Whatsie')
-    meta(name='msapplication-TileColor', content='#333333')
-    meta(name='msapplication-TileImage', content='/mstile-144x144.png')
-    meta(name='theme-color', content='#4cba64')
-      
-    meta(name='description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on OS X, Windows and Linux. It has themes, keyboard shortcuts, spell checking and native notifications.')
-    meta(name='keywords' content='whatsapp, web, messenger, chat, conversations, desktop, client')
-    meta(name='author' content='aluxian.com')
-    meta(name='copyright' content='aluxian.com')
-    meta(name='application-name' content='Whatsie')
-      
-    meta(property='og:title' content='Whatsie')
-    meta(property='og:description' content='A simple & beautiful desktop client for WhatsApp Web. Chat without distractions on OS X, Windows and Linux. It has themes, keyboard shortcuts, spell checking and native notifications.')
-    meta(property='og:type' content='website')
-    meta(property='og:image' content='https://whatsie.chat/img/preview.png')
-    meta(property='og:url' content='https://whatsie.chat')
-    meta(property='fb:admins' content='100000476749759')
-    meta(property='fb:app_id' content='882107051857027')
-
-    meta(name='twitter:card' content='summary_large_image')
-    meta(name='twitter:creator' content='@aluxian')
-    meta(name='twitter:image' content='https://whatsie.chat/img/preview.png')
-      
-    link(rel='canonical' href='https://whatsie.chat')
-    script.
-      if (document.location.host == 'aluxian.github.io') {
-        document.location = 'https://whatsie.chat';
-      }
-      
-    // inject:css
+    include ./includes/meta_head.jade  
+    include ./includes/favicons.jade
+    include ./includes/meta_descriptions.jade
+    include ./includes/styles.jade
 
   body
     
-    #fb-root
-    script.
-      (function(d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = '//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.3&appId=882107051857027';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-      
+    include ./includes/script_fb.jade
+    
     section#header
       .container
         a.logo(href='/')
@@ -382,39 +327,4 @@ html
         p.left No affiliation with Facebook or WhatsApp. #[a(href='/terms.html') Terms and Conditions]. #[a(href='/privacy.html') Privacy Policy].
         p.right Coded with &hearts; by #[a(href='http://www.aluxian.com/') Alexandru Rosianu]
 
-    // inject:js
-
-    //- IntroBar
-    script var _intro_bar = window._intro_bar || {};(function() {var i,e;i=document.createElement('script'), i.type='text/javascript';i.async=1, i.src='//cdn.introbar.com/js/v1.js', e=document.getElementsByTagName('script')[0], e.parentNode.insertBefore(i,e);})();_intro_bar.account_id = '5587c2b264a72';
-
-    //- Twitter
-    script.
-      !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)
-      ?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+
-      '://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);
-      }}(document, 'script', 'twitter-wjs');
-    
-    //- GitHub
-    script#github-bjs(async defer src='https://buttons.github.io/buttons.js')
-    
-    //- Google+  
-    script(async defer src='https://apis.google.com/js/platform.js')
-      
-    //- Typeform
-    script (function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()
-      
-    //- HelloBar
-    script(async src='//my.hellobar.com/2da5357371cb57f5c51b8ea69c4edf11e819c1dd.js')
-      
-    //- AddThis
-    script(async src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f3e264b364b047d')
-    
-    //- Google Analytics
-    script.
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-45600261-7', 'auto');
-      ga('send', 'pageview');
+    include ./includes/scripts.jade

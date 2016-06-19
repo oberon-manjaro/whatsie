@@ -1,0 +1,29 @@
+// inject:js
+
+//- IntroBar
+script var _intro_bar = window._intro_bar || {};(function() {var i,e;i=document.createElement('script'), i.type='text/javascript';i.async=1, i.src='//cdn.introbar.com/js/v1.js', e=document.getElementsByTagName('script')[0], e.parentNode.insertBefore(i,e);})();_intro_bar.account_id = '5587c2b264a72';
+
+//- Twitter
+script.
+  !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)
+  ?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+
+  '://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);
+  }}(document, 'script', 'twitter-wjs');
+
+//- GitHub
+script#github-bjs(async defer src='https://buttons.github.io/buttons.js')
+
+//- Google+  
+script(async defer src='https://apis.google.com/js/platform.js')
+  
+//- Typeform
+script (function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()
+  
+//- HelloBar
+script(async src='//my.hellobar.com/2da5357371cb57f5c51b8ea69c4edf11e819c1dd.js')
+  
+//- AddThis
+script(async src='//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-4f3e264b364b047d')
+
+//- Google Analytics
+include ./ga.jade

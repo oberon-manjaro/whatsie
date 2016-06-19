@@ -3,33 +3,9 @@ html
   head
     title End-User License Agreement – Whatsie
 
-    meta(charset='UTF-8')
-    meta(http-equiv='X-UA-Compatible', content='IE=edge')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-      
-    link(rel='apple-touch-icon', sizes='57x57', href='/apple-touch-icon-57x57.png')
-    link(rel='apple-touch-icon', sizes='60x60', href='/apple-touch-icon-60x60.png')
-    link(rel='apple-touch-icon', sizes='72x72', href='/apple-touch-icon-72x72.png')
-    link(rel='apple-touch-icon', sizes='76x76', href='/apple-touch-icon-76x76.png')
-    link(rel='apple-touch-icon', sizes='114x114', href='/apple-touch-icon-114x114.png')
-    link(rel='apple-touch-icon', sizes='120x120', href='/apple-touch-icon-120x120.png')
-    link(rel='apple-touch-icon', sizes='144x144', href='/apple-touch-icon-144x144.png')
-    link(rel='apple-touch-icon', sizes='152x152', href='/apple-touch-icon-152x152.png')
-    link(rel='apple-touch-icon', sizes='180x180', href='/apple-touch-icon-180x180.png')
-    link(rel='icon', type='image/png', href='/favicon-32x32.png', sizes='32x32')
-    link(rel='icon', type='image/png', href='/favicon-194x194.png', sizes='194x194')
-    link(rel='icon', type='image/png', href='/favicon-96x96.png', sizes='96x96')
-    link(rel='icon', type='image/png', href='/android-chrome-192x192.png', sizes='192x192')
-    link(rel='icon', type='image/png', href='/favicon-16x16.png', sizes='16x16')
-    link(rel='manifest', href='/manifest.json')
-    link(rel='mask-icon', href='/safari-pinned-tab.svg', color='#4cba64')
-    meta(name='apple-mobile-web-app-title', content='Whatsie')
-    meta(name='application-name', content='Whatsie')
-    meta(name='msapplication-TileColor', content='#333333')
-    meta(name='msapplication-TileImage', content='/mstile-144x144.png')
-    meta(name='theme-color', content='#4cba64')
-
-    // inject:css
+    include ./includes/meta_head.jade  
+    include ./includes/favicons.jade
+    include ./includes/styles.jade
 
   body
       
@@ -135,12 +111,4 @@ html
         p.left No affiliation with Facebook or WhatsApp. #[a(href='/terms.html') Terms and Conditions]. #[a(href='/privacy.html') Privacy Policy].
         p.right Coded with &hearts; by #[a(href='http://www.aluxian.com/') Alexandru Rosianu]
 
-    //- Google Analytics
-    script.
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-45600261-7', 'auto');
-      ga('send', 'pageview');
+    include ./includes/ga.jade
