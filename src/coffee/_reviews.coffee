@@ -18,6 +18,9 @@ REVIEWS = [
     text: "<3",
     author: "Ruzzin"
   }, {
+    text: "It's literally the WhatsApp brother of Messenger for desktop. Yeah, it's that awesome!",
+    author: "Diogo Leitão"
+  }, {
     text: "There is no app that can replace Whatsie at the moment.",
     author: "Doyle"
   }, {
