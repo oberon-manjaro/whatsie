@@ -21,6 +21,14 @@ REVIEWS = [
     text: "It's literally the WhatsApp brother of Messenger for desktop. Yeah, it's that awesome!",
     author: "Diogo Leitão"
   }, {
+    text: "I really love this app better than original WhatsApp app. Even contain Fluttershy theme :D",
+    author: "Leomate",
+    link: "https://www.facebook.com/leomate808"
+  }, {
+    text: "I like the themes so much!",
+    author: "Ale",
+    link: "http://github.com/alejandrosobko"
+  }, {
     text: "There is no app that can replace Whatsie at the moment.",
     author: "Doyle"
   }, {
