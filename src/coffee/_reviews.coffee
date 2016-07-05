@@ -18,6 +18,14 @@ REVIEWS = [
     text: "<3",
     author: "Ruzzin"
   }, {
+    text: "It is one of the best app I have ever come across on the net for free.",
+    author: "MC-KONAMI",
+    link: "http://facebook.com/mike.eguabor"
+  }, {
+    text: "The best Linux client for WhatsApp there is developed by a very supportive developer. Can't wait to see the new update of Facebook Messenger. :-)",
+    author: "Robert",
+    link: "http://orzanna.de"
+  }, {
     text: "It's literally the WhatsApp brother of Messenger for desktop. Yeah, it's that awesome!",
     author: "Diogo Leitão"
   }, {
