@@ -1,6 +1,11 @@
 clone_depth: 10
 skip_tags: true
 
+branches:
+  only:
+    - staging
+    - deploy
+
 init:
   - git config --global core.autocrlf input
 
@@ -33,7 +38,8 @@ cache:
 install:
   - npm install -g npm@2
   - set PATH=%APPDATA%\npm;%PATH%
-  - npm install --only=dev
+  - npm install -g gulp
+  - npm install
 
 build: off
 
@@ -41,8 +47,8 @@ test_script:
   - npm test
 
 deploy_script:
-  - if "%APPVEYOR_PULL_REQUEST_NUMBER%" == "" if "%APPVEYOR_REPO_BRANCH%" == "staging" scripts\win32\build_staging.cmd
-  - if "%APPVEYOR_PULL_REQUEST_NUMBER%" == "" if "%APPVEYOR_REPO_BRANCH%" == "deploy" scripts\win32\build_deploy.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "staging" scripts\win32\build_staging.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "deploy" scripts\win32\build_deploy.cmd
 
 notifications:
   - provider: Webhook
