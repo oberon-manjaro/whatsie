@@ -15,9 +15,9 @@ environment:
   SIGN_WIN_CERTIFICATE_PASSWORD:
     secure: jZHktkydPALqcwx36cBY1g==
   AWS_ACCESS_KEY_ID:
-    secure: un4e1Apf/PIHv/duLtXtk4j4AIgorOKxvMhxhoUd4N8=
+    secure: kNIi3lJU00sPeL1/nfYId9HNcS2CXjec2lHRBuJfJb8=
   AWS_SECRET_ACCESS_KEY:
-    secure: zP4aGkRtRqZIKZ2tM2q//6dC4SfzKdxDBGTSV3AEbpUnDDco/uMy9ZU1cmVEQigk
+    secure: CbDuXBvHIfUMgMX9pKBb1CSXS/IoEVIofwLa1PBEKsGr7u6ayTL3yMrjRJEuGtQt
   BINTRAY_API_KEY:
     secure: e+l7MfTu+t2nHFKcpHEz5LgYiVypOVtYnfssYkJ3n+Wno/cldvI+l0jbLosVpQAx
   GITHUB_TOKEN:
@@ -47,8 +47,8 @@ test_script:
   - npm test
 
 deploy_script:
-  - if "%APPVEYOR_REPO_BRANCH%" == "staging" scripts\win32\build_staging.cmd
-  - if "%APPVEYOR_REPO_BRANCH%" == "deploy" scripts\win32\build_deploy.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "staging" ciscripts\win32\build_staging.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "deploy" ciscripts\win32\build_deploy.cmd
 
 notifications:
   - provider: Webhook
