@@ -1,4 +1,9 @@
 (->
+  # Replace download links
+  linkWin = document.getElementById 'linkWinIC'
+  linkWin.setAttribute 'href', 'https://updates.whatsie.chat/download/mirror/installcore/latest?platform=win32'
+  linkWin.setAttribute 'onclick', 'gah.downloadBin("installCore", "Windows")'
+
   # Global configuration for AddThis
   window.addthis_share = window.addthis_share || {}
   window.addthis_share =
