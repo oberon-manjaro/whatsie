@@ -1,7 +1,7 @@
 {
   "name": "whatsie",
   "productName": "Whatsie",
-  "version": "2.0.17",
+  "version": "2.0.16",
   "versionChannel": "dev",
   "description": "A simple & beautiful desktop client for WhatsApp Web.",
   "wvUrl": "https://web.whatsapp.com/",
@@ -21,13 +21,13 @@
     "node-uuid": "1.4.7",
     "promisify-es6": "1.0.1",
     "raven": "0.11.0",
-    "raven-js": "3.2.0",
-    "semver": "5.2.0",
-    "source-map-support": "0.4.1",
+    "raven-js": "3.2.1",
+    "semver": "5.3.0",
+    "source-map-support": "0.4.2",
     "spellchecker": "3.3.1",
     "strip-ansi": "3.0.1",
     "winreg": "1.2.1",
-    "yargs": "4.7.1"
+    "yargs": "4.8.1"
   },
   "devDependencies": {
     "devtron": "1.2.1"
@@ -70,7 +70,7 @@
   "sentry": {
     "dsn": "{{& SENTRY_DSN_PRIVATE }}"
   },
-  "electronVersion": "v1.2.6",
+  "electronVersion": "v1.2.7",
   "distrib": "unset",
   "portable": false,
   "buildNum": 0,
