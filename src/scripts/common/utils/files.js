@@ -21,18 +21,27 @@ async function getStyleCss (style) {
  * @return the list of Hunspell dictionaries available in the given dir
  */
 function getDictionariesSync (dirPath) {
-  if (!fs.existsSync(dirPath)) {
+  if (!fs.statSyncNoException(dirPath)) {
     log('dictionaries path does not exist', dirPath);
     return [];
   }
 
   const dictionaries = fs.readdirSync(dirPath)
-    .filter(filename => path.extname(filename) === '.dic')
-    .filter(filename => fs.statSync(path.join(dirPath, filename)).isFile())
-    .map(filename => path.basename(filename, '.dic'));
+    .filter((filename) => path.extname(filename) === '.dic')
+    .filter((filename) => fs.statSync(path.join(dirPath, filename)).isFile())
+    .map((filename) => path.basename(filename, '.dic'));
 
   log('dictionaries in', dirPath, 'found:', dictionaries);
   return dictionaries;
+}
+
+/**
+ * @return the list of Hunspell dictionaries available in all the given dirs
+ */
+function getAllDictionariesSync (dirPaths) {
+  return dirPaths.reduce((acc, dirPath) => {
+    return acc.concat(getDictionariesSync(dirPath));
+  }, []);
 }
 
 /**
@@ -76,6 +85,7 @@ export default {
   getThemeCss,
   getStyleCss,
   getDictionariesSync,
+  getAllDictionariesSync,
   replaceFile,
   isFileExists
 };

@@ -2,6 +2,7 @@ import {shell, BrowserWindow} from 'electron';
 import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
+import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
@@ -19,6 +20,10 @@ class MainWindowManager extends EventEmitter {
     this.trayManager = trayManager;
   }
 
+  setMenuManager (menuManager) {
+    this.menuManager = menuManager;
+  }
+
   createWindow () {
     log('creating main window');
 
@@ -33,10 +38,15 @@ class MainWindowManager extends EventEmitter {
       title: this.initialTitle,
       backgroundColor: '#f2f2f2',
       useContentSize: true,
-      minWidth: 355,
+      minWidth: 458,
       minHeight: 355,
       show: false
     };
+
+    // Fix Window icon on Linux
+    if (platform.isLinux) {
+      defaultOptions.icon = filePaths.getImagePath('windowIcon.png');
+    }
 
     const options = Object.assign(defaultOptions, bounds);
     this.window = new BrowserWindow(options);
@@ -50,9 +60,9 @@ class MainWindowManager extends EventEmitter {
     // Bind webContents events to local methods
     this.window.webContents.on('new-window', ::this.onNewWindow);
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);
-    this.window.webContents.on('dom-ready', ::this.onDomReady);
 
     // Bind events to local methods
+    this.window.on('ready-to-show', ::this.onReadyToShow);
     this.window.on('enter-full-screen', ::this.onEnterFullScreen);
     this.window.on('leave-full-screen', ::this.onLeaveFullScreen);
     this.window.on('closed', ::this.onClosed);
@@ -114,11 +124,11 @@ class MainWindowManager extends EventEmitter {
   }
 
   /**
-   * Called when the 'dom-ready' event is emitted.
+   * Called when the 'ready-to-show' event is emitted.
    */
-  onDomReady () {
+  onReadyToShow () {
     // Show the window
-    log('onDomReady');
+    log('ready-to-show');
     if (!this.startHidden && !this.window.isVisible()) {
       this.window.show();
     }
@@ -160,21 +170,20 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'close' event is emitted.
    */
   onClose (event) {
-    // Just hide the window unless...
     log('onClose');
 
-    // The app is being updated
+    // The app is being updated, don't prevent closing
     if (this.updateInProgress) {
       return;
     }
 
-    // Or the window is force closed (app quitting)
-    if (platform.isDarwin && !this.forceClose) {
+    // Just hide the window on Darwin and Elementary OS
+    if (!this.forceClose && (platform.isDarwin || global.options.distro.isElementaryOS)) {
       event.preventDefault();
       this.window.hide();
     }
 
-    // Or the app is not running in the tray.
+    // Just hide the window if it's already running in the tray
     if (!this.forceClose && prefs.get('show-tray')) {
       event.preventDefault();
       this.window.hide();
@@ -196,7 +205,7 @@ class MainWindowManager extends EventEmitter {
   onFocus () {
     log('onFocus');
 
-    // Forward this event to the webview.
+    // Forward this event to the webview
     this.window.webContents.send('call-webview-method', 'focus');
 
     // Validate window bounds
@@ -216,7 +225,7 @@ class MainWindowManager extends EventEmitter {
   onBlur () {
     log('onBlur');
 
-    // Forward this event to the webview.
+    // Forward this event to the webview
     this.window.webContents.send('call-webview-method', 'blur');
   }
 
@@ -225,6 +234,10 @@ class MainWindowManager extends EventEmitter {
    */
   onShow () {
     log('onShow');
+    // Enable window specific menu items
+    if (this.menuManager) {
+      this.menuManager.windowSpecificItemsEnabled(true);
+    }
   }
 
   /**
@@ -232,6 +245,10 @@ class MainWindowManager extends EventEmitter {
    */
   onHide () {
     log('onHide');
+    // Disable window specific menu items
+    if (this.menuManager) {
+      this.menuManager.windowSpecificItemsEnabled(false);
+    }
   }
 
   /**

@@ -1,5 +1,5 @@
 import {webFrame, ipcRenderer} from 'electron';
-import {getDictionaryPath} from 'browser/utils/spellchecker';
+import {getDictionaryPath} from 'common/utils/spellchecker';
 import SpellChecker from 'spellchecker';
 
 // Set zoom level
@@ -15,15 +15,17 @@ ipcRenderer.on('spell-checker', function (event, enabled, autoCorrect, langCode)
   log('spell checker enabled:', enabled, 'auto correct:', autoCorrect, 'lang code:', langCode);
 
   if (enabled) {
-    SpellChecker.setDictionary(langCode, getDictionaryPath());
+    const dictionaryPath = getDictionaryPath(langCode);
+    log('using', langCode, 'from', dictionaryPath || 'system', 'for spell checking');
+    SpellChecker.setDictionary(langCode, dictionaryPath);
     webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
-      spellCheck: function (text) {
+      spellCheck: (text) => {
         return !SpellChecker.isMisspelled(text);
       }
     });
   } else {
     webFrame.setSpellCheckProvider(chromiumLangCode, autoCorrect, {
-      spellCheck: function () {
+      spellCheck: () => {
         return true;
       }
     });

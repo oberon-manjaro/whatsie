@@ -1,6 +1,7 @@
 import {ipcRenderer} from 'electron';
 
 import webView from 'renderer/webview';
+import platform from 'common/utils/platform';
 import files from 'common/utils/files';
 import prefs from 'common/utils/prefs';
 
@@ -46,7 +47,7 @@ webView.addEventListener('page-title-updated', function () {
   const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
   let badgeDataUrl = null;
 
-  if (process.platform === 'win32' && count) {
+  if (platform.isWindows && count) {
     badgeDataUrl = createBadgeDataUrl(count);
   }
 
@@ -73,7 +74,7 @@ webView.addEventListener('dom-ready', function () {
   // Inject custom css
   log('injecting custom css');
   files.getStyleCss('mini')
-    .then(css => webView.insertCSS(css))
+    .then((css) => webView.insertCSS(css))
     .catch(logError);
 
   // Restore the default theme
@@ -82,7 +83,7 @@ webView.addEventListener('dom-ready', function () {
     if (global.manifest.themes[themeId]) {
       log('restoring theme', themeId);
       files.getThemeCss(themeId)
-        .then(css => webView.send('apply-theme', css))
+        .then((css) => webView.send('apply-theme', css))
         .catch(logError);
     } else {
       log('invalid theme, unsetting pref');

@@ -26,7 +26,7 @@ class MainMenuManager extends EventEmitter {
       Menu.setApplicationMenu(this.menu);
       log('app menu set');
     } else {
-      logError('menu not created');
+      logError(new Error('menu not created'));
     }
   }
 
@@ -50,6 +50,16 @@ class MainMenuManager extends EventEmitter {
         this.cfuVisibleItem = findItemById(this.menu.items, itemId);
         this.cfuVisibleItem.visible = true;
       });
+    }
+  }
+
+  windowSpecificItemsEnabled (enabled, items = this.menu.items) {
+    for (let item of items) {
+      if (item.needsWindow) {
+        item.enabled = enabled;
+      } else if (item.submenu) {
+        this.windowSpecificItemsEnabled(enabled, item.submenu.items);
+      }
     }
   }
 

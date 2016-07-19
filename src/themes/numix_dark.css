@@ -19,9 +19,14 @@
 
 /* icons color invert*/
 
-.icon-chat, .icon-audio-download, .icon-status-check, .icon-x, .icon-hide, .icon-menu, .icon-smiley, .icon-ptt, .icon-clip, .icon-down, .icon-muted, .icon-download, .icon-x-viewer, .icon-audio-play, .icon-audio-pause, .icon-emoji-input, .btn-media-forward, .icon-status-image, .icon-status-video, .icon-status-dblcheck {
-  filter: invert(100%) !important;
-  -webkit-filter: invert(100%) !important;
+.icon {
+  filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
+
+.btn-close-drawer, .icon-msg-dblcheck {
+  filter: invert(0%);
+  -webkit-filter: invert(0%);
 }
 
 
@@ -35,7 +40,7 @@
 /* Login page */
 
 #window, #platforms {
-  background: #333 !important;
+  background: #333333 !important;
 }
 
 #window *, #platforms * {
@@ -64,8 +69,12 @@
 
 .chat-time, .message-datetime, .meta-audio {
   color: #dedede !important;
-
 }
+
+.message-datetime {
+  -webkit-filter: invert(0%);
+}
+
 /* Checkboxes */
 
 .checkbox.unchecked {
@@ -101,15 +110,19 @@
   background: #333333 !important;
 }
 
+.new-group-search, .new-group-contacts, .drawer-section-main {
+  background: #333333;
+}
+
 
 /* Search bar and right sidebar */
 
 .subheader-search, .subheader-search:after, #pane-side, .pane-preview {
-  background: #333 !important;
+  background: #333333 !important;
 }
 
 .cont-input-search, .input-search, .animate-enter1 {
-  background: #605F65 !important;
+  background: #626262 !important;
   border-radius: 0px;
   width: calc(100% - 24px);
 }
@@ -130,7 +143,7 @@
 }
 
 .hover.chat {
-  background: #605F65 !important;
+  background: #626262 !important;
 }
 
 .drawer-header-popup, .drawer-header, .drawer-editable {
@@ -138,7 +151,7 @@
 }
 
 .list-action:hover {
-  background: #605F65;
+  background: #626262;
 }
 
 
@@ -245,11 +258,11 @@ header.pane-chat-header {
 /* Chat bubble */
 
 .message-in, .context-in {
-  background: #7d7c83 !important;
+  background: #626262 !important;
 }
 
 .message-out, .context-out {
-  background: #4c4c50 !important;
+  background: #444444 !important;
 }
 
 .tail {
@@ -286,12 +299,12 @@ header.pane-chat-header {
 /* Emojis */
 
 button.menu-item {
-  background: #605F65 !important;
+  background: #626262 !important;
   transition-duration: .25s !important;
 }
 
 button.menu-item:hover {
-  background: #605F65 !important;
+  background: #626262 !important;
 }
 
 .menu-tabs-marker {
@@ -328,7 +341,7 @@ li .ellipsify {
 }
 
 li .ellipsify:hover {
-  background: #605F65 !important;
+  background: #626262 !important;
 }
 
 

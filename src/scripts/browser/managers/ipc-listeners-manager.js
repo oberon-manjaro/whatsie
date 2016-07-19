@@ -33,15 +33,15 @@ class IpcListenersManager extends EventEmitter {
 
     // Set icon badge
     if (prefs.get('show-notifications-badge')) {
-      if (platform.isDarwin) {
-        app.dock.setBadge(count);
-      } else if (platform.isWindows) {
+      if (platform.isWindows) {
         if (count) {
           const image = NativeImage.createFromDataUrl(badgeDataUrl);
           this.mainWindowManager.window.setOverlayIcon(image, count);
         } else {
           this.mainWindowManager.window.setOverlayIcon(null, '');
         }
+      } else {
+        app.setBadgeCount(parseInt(count, 10) || 0);
       }
     }
 
@@ -56,12 +56,17 @@ class IpcListenersManager extends EventEmitter {
    * Called when the 'context-menu' event is received.
    */
   onContextMenu (event, options) {
-    const menu = contextMenu.create(options, this.mainWindowManager.window);
-    if (menu) {
-      log('opening context menu');
-      setTimeout(() => {
-        menu.popup(this.mainWindowManager.window);
-      }, 50);
+    try {
+      options = JSON.parse(options);
+      const menu = contextMenu.create(options, this.mainWindowManager.window);
+      if (menu) {
+        log('opening context menu');
+        setTimeout(() => {
+          menu.popup(this.mainWindowManager.window);
+        }, 50);
+      }
+    } catch (err) {
+      logError(err);
     }
   }
 

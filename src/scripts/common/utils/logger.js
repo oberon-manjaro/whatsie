@@ -10,14 +10,14 @@ function anonymizeException (err) {
   err.message = err.message.replace(app.getPath('home'), '<home>');
 }
 
-function trimLongPaths (err) {
-  const app = require('common/electron/app').default;
-  err.stack = err.stack
-    .split('\n')
-    .map(line => line.replace(/\/.+atom\.asar/, 'atom.asar'))
-    .map(line => line.replace(app.getAppPath(), 'app'))
-    .join('\n');
-}
+// function trimLongPaths (err) {
+//   const app = require('common/electron/app').default;
+//   err.stack = err.stack
+//     .split('\n')
+//     .map((line) => line.replace(/\/.+atom\.asar/, 'atom.asar'))
+//     .map((line) => line.replace(app.getAppPath(), 'app'))
+//     .join('\n');
+// }
 
 function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
@@ -50,7 +50,7 @@ function reportToSentry (namespace, isFatal, err) {
   const sentry = require('common/services/sentry').default;
   if (sentry) {
     anonymizeException(err);
-    trimLongPaths(err);
+    // trimLongPaths(err);
 
     console.log('reporting to sentry:', err);
     sentry.captureException(err, {
@@ -59,7 +59,7 @@ function reportToSentry (namespace, isFatal, err) {
         trace: new Error().stack
       },
       tags: {
-        namespace: namespace
+        namespace
       }
     }, function (result) {
       console.log('reported to sentry:', result);
@@ -80,19 +80,24 @@ export function debugLogger (filename) {
   };
 }
 
-export function errorLogger (filename, isFatal, skipReporting) {
+export function errorLogger (filename, isFatal) {
   let namespace = null;
-  return function (err) {
+  return function (err, skipReporting = false) {
     if (!namespace) {
       namespace = namespaceOfFile(filename);
     }
 
     if (!(err instanceof Error)) {
-      err = new Error(err);
+      if (global.options.dev) {
+        const fnName = isFatal ? 'logFatal' : 'logError';
+        throw new Error('the first parameter to ' + fnName + ' must be an Error');
+      } else {
+        err = new Error(err);
+      }
     }
 
     const browserLogger = require('common/utils/logger-browser').default;
-    browserLogger.printError(namespace, isFatal, util.format(err));
+    browserLogger.printError(namespace, isFatal, err.stack);
 
     if (!skipReporting) {
       reportToPiwik(namespace, isFatal, err);

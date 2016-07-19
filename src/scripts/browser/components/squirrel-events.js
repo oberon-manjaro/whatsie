@@ -1,6 +1,5 @@
 import {app, dialog} from 'electron';
 import cp from 'child_process';
-import async from 'async';
 import path from 'path';
 import del from 'del';
 
@@ -18,27 +17,29 @@ class SquirrelEvents {
 
     if (options.squirrelInstall) {
       log('creating shortcuts');
-      this.spawnSquirrel(['--createShortcut', path.basename(app.getPath('exe'))], this.eventHandled);
+      this.spawnSquirrel('--createShortcut', this.getShortcutExeName()).then(this.exitApp);
       return true;
     }
 
     if (options.squirrelUpdated || options.squirrelObsolete) {
-      setTimeout(this.eventHandled);
+      setTimeout(this.exitApp);
       return true;
     }
 
     if (options.squirrelUninstall) {
-      async.series([
-        ::this.teardownShortcuts,
-        ::this.teardownAutoLauncherRegKey,
-        ::this.teardownLeftoverUserData
-      ], function () {
-        log('teardown finished');
-      });
+      this.teardown().then(this.exitApp);
       return true;
     }
 
     return false;
+  }
+
+  getShortcutExeName () {
+    return path.basename(app.getPath('exe'));
+  }
+
+  exitApp (exitCode = 0) {
+    app.exit(exitCode);
   }
 
   onSquirrelFirstrun (options) {
@@ -107,51 +108,45 @@ class SquirrelEvents {
     });
   }
 
-  spawnSquirrel (args, callback) {
+  /**
+   * Spawn Squirrel's Update.exe with the given arguments.
+   */
+  async spawnSquirrel (...args) {
     const squirrelExec = filePaths.getSquirrelUpdateExePath();
     log('spawning', squirrelExec, args);
 
-    const child = cp.spawn(squirrelExec, args, { detached: true });
-    child.on('close', function (code) {
-      if (code) {
-        logError(squirrelExec, 'exited with code', code);
-      }
-      callback(code || 0);
+    const child = cp.spawn(squirrelExec, args, {detached: true});
+    return await new Promise((resolve, reject) => {
+      child.on('close', function (code) {
+        if (code) {
+          logError(new Error(squirrelExec + ' exited with code ' + code));
+        }
+        resolve(code || 0);
+      });
     });
   }
 
-  eventHandled (exitCode = 0) {
-    app.exit(exitCode);
+  async teardown () {
+    try { await this.teardownShortcuts(); } catch (err) { logError(err, true); }
+    try { await this.teardownAutoLauncherRegKey(); } catch (err) { logError(err, true); }
+    try { await this.teardownLeftoverUserData(); } catch (err) { logError(err, true); }
+    log('teardown finished');
   }
 
-  teardownAutoLauncherRegKey (callback) {
-    log('removing reg keys');
-    new AutoLauncher().disable()
-      .then(() => callback())
-      .catch(err => {
-        logError(err);
-        callback();
-      });
-  }
-
-  teardownLeftoverUserData (callback) {
-    log('removing user data folder', app.getPath('userData'));
-    del(app.getPath('userData'), { force: true })
-      .then(paths => {
-        log('deleted', paths);
-        callback();
-      })
-      .catch(err => {
-        logError(err);
-        callback();
-      });
-  }
-
-  teardownShortcuts (callback) {
+  async teardownShortcuts () {
     log('removing shortcuts');
-    const args = ['--removeShortcut', global.manifest.productName + '.exe'];
-    this.spawnSquirrel(args, this.eventHandled);
-    callback();
+    await this.spawnSquirrel('--removeShortcut', this.getShortcutExeName());
+  }
+
+  async teardownAutoLauncherRegKey () {
+    log('removing reg keys');
+    await new AutoLauncher().disable();
+  }
+
+  async teardownLeftoverUserData () {
+    const userDataPath = app.getPath('userData');
+    log('removing user data folder', userDataPath);
+    await del(userDataPath, {force: true}).then(log.bind(null, 'deleted'));
   }
 
 }

@@ -1,5 +1,5 @@
 import EventEmitter from 'events';
-import request from 'request';
+import needle from 'needle';
 import {app} from 'electron';
 import semver from 'semver';
 
@@ -10,16 +10,11 @@ class BaseAutoUpdater extends EventEmitter {
     this.latestReleaseUrl = latestReleaseUrl;
   }
 
-  checkForUpdates (options) {
-    if (!this.latestReleaseUrl) {
-      this.emit('error', new Error('Latest release URL is not set'));
-      return;
-    }
-
-    log('checking for update', options);
+  checkForUpdates (url) {
+    log('checking for update', url);
     this.emit('checking-for-update');
 
-    request(options, (err, response, json) => {
+    needle.get(url, {json: true}, (err, response, json) => {
       if (err) {
         log('update error while getting json', err);
         this.emit('error', err);

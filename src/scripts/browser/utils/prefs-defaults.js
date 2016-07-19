@@ -1,6 +1,6 @@
 import {app} from 'electron';
 
-import {getAvailableDictionaries} from 'browser/utils/spellchecker';
+import {getAvailableDictionaries} from 'common/utils/spellchecker';
 import platform from 'common/utils/platform';
 
 let availableLanguages = null;
@@ -13,7 +13,6 @@ const defaults = {
   'links-in-browser': true,
   'close-with-esc': false,
   'quit-behaviour-taught': false,
-  'raffle-code': null,
   'show-notifications-badge': true,
   'show-tray': platform.isWindows,
   'show-dock': true,

@@ -1,12 +1,13 @@
 clone_depth: 10
 skip_tags: true
 
-init:
-  - git config --global core.autocrlf input
-
 branches:
   only:
+    - staging
     - deploy
+
+init:
+  - git config --global core.autocrlf input
 
 environment:
   SIGNTOOL_PATH: 'C:/Program Files (x86)/Microsoft SDKs/Windows/v7.1A/Bin/SignTool.exe'
@@ -14,9 +15,11 @@ environment:
   SIGN_WIN_CERTIFICATE_PASSWORD:
     secure: jZHktkydPALqcwx36cBY1g==
   AWS_ACCESS_KEY_ID:
-    secure: un4e1Apf/PIHv/duLtXtk4j4AIgorOKxvMhxhoUd4N8=
+    secure: kNIi3lJU00sPeL1/nfYId9HNcS2CXjec2lHRBuJfJb8=
   AWS_SECRET_ACCESS_KEY:
-    secure: zP4aGkRtRqZIKZ2tM2q//6dC4SfzKdxDBGTSV3AEbpUnDDco/uMy9ZU1cmVEQigk
+    secure: CbDuXBvHIfUMgMX9pKBb1CSXS/IoEVIofwLa1PBEKsGr7u6ayTL3yMrjRJEuGtQt
+  BINTRAY_API_KEY:
+    secure: e+l7MfTu+t2nHFKcpHEz5LgYiVypOVtYnfssYkJ3n+Wno/cldvI+l0jbLosVpQAx
   GITHUB_TOKEN:
     secure: VgebEox3uOMipNS2O/GeWXLpfqPcIp3hUstSLsaL0YpHvxG95FVzQLuI3IbahvFH
   SENTRY_DSN_PRIVATE:
@@ -35,25 +38,17 @@ cache:
 install:
   - npm install -g npm@3
   - set PATH=%APPDATA%\npm;%PATH%
-  - aws s3 cp --region eu-west-1 s3://aluxian/certificates/foss_ar_sha2.pfx C:/foss_ar_sha2.pfx
   - npm install -g gulp
   - npm install
-  - cd src && npm install
 
-before_build:
+build: off
+
+test_script:
   - npm test
-  - gulp rebuild:32 --verbose
-
-build_script:
-  - gulp pack:win32:portable --prod --verbose
-  - gulp pack:win32:installer --prod --verbose
 
 deploy_script:
-  - gulp clean:prev-releases:win32 --verbose
-  - gulp publish:github --verbose
-
-artifacts:
-  - path: dist\*
+  - if "%APPVEYOR_REPO_BRANCH%" == "staging" ciscripts\win32\build_staging.cmd
+  - if "%APPVEYOR_REPO_BRANCH%" == "deploy" ciscripts\win32\build_deploy.cmd
 
 notifications:
   - provider: Webhook

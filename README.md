@@ -1,9 +1,8 @@
-# Whatsie (beta)
+# Whatsie
 
-[![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg?branch=deploy)](https://travis-ci.org/Aluxian/Whatsie)
-[![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/deploy?svg=true)](https://ci.appveyor.com/project/Aluxian/Whatsie)
-[![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/deploy.svg?style=shield)](https://circleci.com/gh/Aluxian/Whatsie)
-[![bitHound Overall Score](https://www.bithound.io/github/Aluxian/Whatsie/badges/score.svg)](https://www.bithound.io/github/Aluxian/Whatsie)
+[![OS X build](https://travis-ci.org/Aluxian/Whatsie.svg?branch=staging)](https://travis-ci.org/Aluxian/Whatsie)
+[![Windows build](https://ci.appveyor.com/api/projects/status/6vborc92ob25kqe0/branch/staging?svg=true)](https://ci.appveyor.com/project/Aluxian/Whatsie)
+[![Linux builds](https://circleci.com/gh/Aluxian/Whatsie/tree/staging.svg?style=shield)](https://circleci.com/gh/Aluxian/Whatsie)
 [![Downloads total](https://updates.whatsie.chat/badge/downloads.svg)](https://updates.whatsie.chat/stats)
 [![Services status](https://img.shields.io/badge/services-status-blue.svg)](https://status.whatsie.chat/)
 [![HuBoard task board](https://img.shields.io/badge/hu-board-7965cc.svg)](https://huboard.com/Aluxian/Whatsie)
@@ -44,7 +43,7 @@ If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's g
 
 ### Windows
 
-*Installer:*
+*Installer (recommended):*
 
 1. Download [whatsie-x.x.x-win32-setup.exe][LR]
 2. Run the installer, wait until it finishes
@@ -58,7 +57,7 @@ If you want to help me make Whatsie better, I recommend `dev` or `beta`. Let's g
 
 ### Linux
 
-*Ubuntu, Debian (deb package):*
+*Ubuntu, Debian 8+ (deb package):*
 
 1. Download [whatsie-x.x.x-linux-arch.deb][LR]
 2. Double click and install, or run `dpkg -i whatsie-x.x.x-linux-arch.deb` in the terminal
@@ -89,7 +88,7 @@ sudo apt-get install whatsie
 3. Start the app with your app launcher or by running `whatsie` in a terminal
 4. Done! The app will NOT update automatically, but you can still check for updates
 
-You can also use yum:
+You can also use `yum` (recommended):
 
 ```
 # Add my repository to your repos list (skip if you've done this already)
@@ -107,6 +106,8 @@ sudo yum install whatsie.x86_64   # for 64-bit distros
 3. Done! The app will NOT update automatically, but you can still check for updates
 
 Repository URL: https://aur.archlinux.org/packages/whatsie/
+
+[LR]: https://github.com/Aluxian/Whatsie/releases
 
 # For Developers
 
@@ -250,4 +251,11 @@ gulp pack:<linux32|linux64>:<deb|rpm> [--prod]
 
 Make sure you've installed [fpm](https://github.com/jordansissel/fpm).
 
-[LR]: https://github.com/Aluxian/Whatsie/releases/latest
+### Release flow
+
+`develop -> staging -> deploy -> master`
+
+1. All work is done on branch `develop`. Every push to `develop` will make the CIs run code linting and other checks.
+2. In order to build, push to `staging`. Every push to `staging` will make the CIs build the app and upload it to Bintray at [aluxian/artifacts](https://dl.bintray.com/aluxian/artifacts/staging/), available for testing.
+3. After a version is tested and is ready for release, push it to `deploy`. This will rebuild the app and upload it to GitHub, Bintray and other repositories.
+4. Now, the code is ready to be merged into `master`.

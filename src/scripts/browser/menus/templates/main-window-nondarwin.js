@@ -7,10 +7,12 @@ export default {
   submenu: [{
     label: '&Reload',
     accelerator: 'Ctrl+R',
+    needsWindow: true,
     click: $.reloadWindow()
   }, {
     label: 'Re&set',
     accelerator: 'Ctrl+Alt+R',
+    needsWindow: true,
     click: $.resetWindow()
   }, {
     type: 'separator'
@@ -18,10 +20,12 @@ export default {
     type: 'checkbox',
     label: '&Float on Top',
     accelerator: 'Ctrl+Shift+F',
+    needsWindow: true,
     click: $.floatOnTop($.key('checked'))
   }, {
     type: 'checkbox',
     label: 'Show in &Tray',
+    enabled: !global.options.distro.isElementaryOS,
     click: $.all(
       $.showInTray($.key('checked')),
       $.setPref('show-tray', $.key('checked'))
@@ -29,6 +33,8 @@ export default {
     parse: $.all(
       $.setLocal('checked', $.pref('show-tray')),
     )
+  }, {
+    type: 'separator'
   }, {
     type: 'checkbox',
     label: 'Close with &Escape Key',
@@ -40,11 +46,14 @@ export default {
     click: $.setPref('links-in-browser', $.key('checked')),
     parse: $.setLocal('checked', $.pref('links-in-browser'))
   }, {
+    type: 'separator'
+  }, {
     type: 'checkbox',
-    label: '&Notifications Badge in Taskbar',
+    label: '&Notifications Badge in ' + (platform.isLinux ? 'Dock' : 'Taskbar'),
+    needsWindow: true,
     click: $.all(
       $.setPref('show-notifications-badge', $.key('checked')),
-      $.hideTaskbarBadge($.key('checked'))
+      platform.isLinux ? $.hideDockBadge($.key('checked')) : $.hideTaskbarBadge($.key('checked'))
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('show-notifications-badge'))
