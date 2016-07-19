@@ -1,12 +1,11 @@
 import EventEmitter from 'events';
-import app from 'app';
+import {app} from 'electron';
 
-import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
 class AppListenersManager extends EventEmitter {
 
-  constructor(mainWindowManager, autoUpdateManager) {
+  constructor (mainWindowManager, autoUpdateManager) {
     super();
     this.mainWindowManager = mainWindowManager;
     this.autoUpdateManager = autoUpdateManager;
@@ -15,7 +14,7 @@ class AppListenersManager extends EventEmitter {
   /**
    * Bind events to local methods.
    */
-  set() {
+  set () {
     app.on('before-quit', ::this.onBeforeQuit);
     app.on('will-quit', ::this.onWillQuit);
     app.on('window-all-closed', ::this.onAllWindowsClosed);
@@ -25,7 +24,7 @@ class AppListenersManager extends EventEmitter {
   /**
    * Called when the 'before-quit' event is emitted.
    */
-  onBeforeQuit() {
+  onBeforeQuit () {
     // Set a flag to close the main window instead of hiding it
     log('before quit');
     if (this.mainWindowManager) {
@@ -36,23 +35,30 @@ class AppListenersManager extends EventEmitter {
   /**
    * Called when the 'will-quit' event is emitted.
    */
-  onWillQuit(event) {
+  onWillQuit (event) {
     // Update the app before actually quitting
     log('will quit');
-    const hasUpdate = this.autoUpdateManager.state == this.autoUpdateManager.states.UPDATE_DOWNLOADED;
+    const hasUpdate = this.autoUpdateManager.state === this.autoUpdateManager.states.UPDATE_DOWNLOADED;
     const isUpdating = this.mainWindowManager.updateInProgress;
-    if (platform.isDarwin && hasUpdate && !isUpdating) {
-      log('has update downloaded, installing it before quitting');
-      event.preventDefault();
-      prefs.setSync('launch-quit', true);
-      this.autoUpdateManager.quitAndInstall();
+    try {
+      if (hasUpdate && !isUpdating) {
+        log('has update downloaded, installing it before quitting');
+        event.preventDefault();
+        prefs.setSync('launch-quit', true);
+        setTimeout(() => {
+          log('timeout over');
+          this.autoUpdateManager.quitAndInstall();
+        }, 200);
+      }
+    } catch (err) {
+      logFatal(err);
     }
   }
 
   /**
    * Called when the 'window-all-closed' event is emitted.
    */
-  onAllWindowsClosed() {
+  onAllWindowsClosed () {
     // Quit the app if all windows are closed
     log('all windows closed');
     app.quit();
@@ -61,7 +67,7 @@ class AppListenersManager extends EventEmitter {
   /**
    * Called when the 'activate' event is emitted.
    */
-  onActivate(event, hasVisibleWindows) {
+  onActivate (event, hasVisibleWindows) {
     // Reopen the main window on dock clicks (OS X)
     log('activate app, hasVisibleWindows', hasVisibleWindows);
     if (!hasVisibleWindows && this.mainWindowManager) {

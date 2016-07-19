@@ -1,9 +1,5 @@
+import {app, ipcMain, shell, BrowserWindow, NativeImage} from 'electron';
 import EventEmitter from 'events';
-import BrowserWindow from 'browser-window';
-import NativeImage from 'native-image';
-import {ipcMain} from 'electron';
-import shell from 'shell';
-import app from 'app';
 
 import contextMenu from 'browser/menus/context';
 import platform from 'common/utils/platform';
@@ -11,7 +7,7 @@ import prefs from 'browser/utils/prefs';
 
 class IpcListenersManager extends EventEmitter {
 
-  constructor(notifManager, trayManager, mainWindowManager) {
+  constructor (notifManager, trayManager, mainWindowManager) {
     super();
     this.notifManager = notifManager;
     this.trayManager = trayManager;
@@ -21,7 +17,7 @@ class IpcListenersManager extends EventEmitter {
   /**
    * Bind events to local methods.
    */
-  set() {
+  set () {
     ipcMain.on('notif-count', ::this.onNotifCount);
     ipcMain.on('context-menu', ::this.onContextMenu);
     ipcMain.on('close-window', ::this.onCloseWindow);
@@ -31,21 +27,21 @@ class IpcListenersManager extends EventEmitter {
   /**
    * Called when the 'notif-count' event is received.
    */
-  onNotifCount(event, count, badgeDataUrl) {
+  onNotifCount (event, count, badgeDataUrl) {
     log('on renderer notif-count', count, !!badgeDataUrl || null);
     this.notifManager.unreadCount = count;
 
     // Set icon badge
     if (prefs.get('show-notifications-badge')) {
-      if (platform.isDarwin) {
-        app.dock.setBadge(count);
-      } else if (platform.isWindows) {
+      if (platform.isWindows) {
         if (count) {
           const image = NativeImage.createFromDataUrl(badgeDataUrl);
           this.mainWindowManager.window.setOverlayIcon(image, count);
         } else {
           this.mainWindowManager.window.setOverlayIcon(null, '');
         }
+      } else {
+        app.setBadgeCount(parseInt(count, 10) || 0);
       }
     }
 
@@ -59,27 +55,32 @@ class IpcListenersManager extends EventEmitter {
   /**
    * Called when the 'context-menu' event is received.
    */
-  onContextMenu(event, options) {
-    const menu = contextMenu.create(options, this.mainWindowManager.window);
-    if (menu) {
-      log('opening context menu');
-      setTimeout(() => {
-        menu.popup(this.mainWindowManager.window);
-      }, 50);
+  onContextMenu (event, options) {
+    try {
+      options = JSON.parse(options);
+      const menu = contextMenu.create(options, this.mainWindowManager.window);
+      if (menu) {
+        log('opening context menu');
+        setTimeout(() => {
+          menu.popup(this.mainWindowManager.window);
+        }, 50);
+      }
+    } catch (err) {
+      logError(err);
     }
   }
 
   /**
    * Called when the 'close-window' event is received.
    */
-  onCloseWindow() {
+  onCloseWindow () {
     this.mainWindowManager.window.close();
   }
 
   /**
    * Called when the 'open-url' event is received.
    */
-  onOpenUrl(event, url, options) {
+  onOpenUrl (event, url, options) {
     if (prefs.get('links-in-browser')) {
       log('on renderer open-url, externally', url);
       shell.openExternal(url);

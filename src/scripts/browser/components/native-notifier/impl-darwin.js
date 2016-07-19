@@ -1,10 +1,11 @@
+/* eslint-disable babel/new-cap */
 import $ from 'nodobjc';
 
 import BaseNativeNotifier from 'browser/components/native-notifier/base';
 
 class DarwinNativeNotifier extends BaseNativeNotifier {
 
-  constructor() {
+  constructor () {
     super();
 
     // Flag that this notifier has been implemented
@@ -30,23 +31,23 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     this.center('setDelegate', this.delegate);
   }
 
-  shouldPresentNotification(self, cmd, center, notif) {
+  shouldPresentNotification (self, cmd, center, notif) {
     log('shouldPresentNotification', notif('identifier'), 'true');
     return true;
   }
 
-  didActivateNotification(self, cmd, center, notif) {
+  didActivateNotification (self, cmd, center, notif) {
     const type = parseInt(notif('activationType').toString(), 10);
     const identifier = notif('identifier').toString();
     const tag = identifier.split(':::')[0];
 
     const payload = {
-      tag: tag,
+      tag,
       type: DarwinNativeNotifier.ACTIVATION_TYPES[type],
-      identifier: identifier
+      identifier
     };
 
-    if (payload.type == 'replied') {
+    if (payload.type === 'replied') {
       payload.response = notif('response');
       if (payload.response) {
         payload.response = payload.response.toString().replace('{\n}', '');
@@ -58,7 +59,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     this.emit('notif-activated', payload);
   }
 
-  fireNotification({title, subtitle, body, tag = title, canReply, icon, onClick, onCreate}) {
+  fireNotification ({title, subtitle, body, tag = title, canReply, icon, onClick, onCreate}) {
     const identifier = tag + ':::' + Date.now();
     const data = {title, subtitle, body, tag, canReply, onClick, onCreate, identifier};
 
@@ -99,7 +100,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
     }
   }
 
-  removeNotification(identifier) {
+  removeNotification (identifier) {
     const deliveredNotifications = this.center('deliveredNotifications');
     for (let i = 0; i < deliveredNotifications('count'); i++) {
       const deliveredNotif = deliveredNotifications('objectAtIndex', $(i)('unsignedIntValue'));

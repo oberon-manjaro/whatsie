@@ -1,5 +1,5 @@
-function createAppliedHandler(name) {
-  return function() {
+function createAppliedHandler (name) {
+  return function () {
     const nativeNotifier = global.application.nativeNotifier;
     const func = nativeNotifier[name];
     if (func) {
@@ -15,5 +15,6 @@ function createAppliedHandler(name) {
 export default {
   isImplemented: !!global.application.nativeNotifier.isImplemented,
   fireNotification: createAppliedHandler('fireNotification'),
-  removeNotification: createAppliedHandler('removeNotification')
+  removeNotification: createAppliedHandler('removeNotification'),
+  onClick: createAppliedHandler('onClick')
 };

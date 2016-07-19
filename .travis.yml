@@ -3,7 +3,7 @@ git:
 
 branches:
   only:
-    - develop
+    - staging
     - deploy
 
 os:
@@ -20,34 +20,21 @@ env:
     - SIGN_DARWIN_KEYCHAIN_PASSWORD=travis
 
 install:
-  - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-  - unzip awscli-bundle.zip
-  - ./awscli-bundle/install -b ~/bin/aws
-  - export PATH=~/bin:$PATH
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
-  - nvm install 0.12
-  - nvm use 0.12
+  - nvm install 5.0
+  - nvm use 5.0
   - npm install -g gulp
   - npm install
-  - export npm_config_target=`node -pe "require('./src/package.json').electronVersion.substring(1)"`
-  - cd src && HOME=~/.electron-gyp npm_config_disturl="https://atom.io/download/atom-shell" npm_config_arch="x64" npm_config_runtime="electron" npm install && cd ..
+  - ./ciscripts/darwin/install_aws.sh
+  - ./ciscripts/darwin/rebuild_src.sh
 
 before_script:
-  - aws s3 cp --region eu-west-1 s3://aluxian/certificates/armacdev.cer armacdev.cer
-  - aws s3 cp --region eu-west-1 s3://aluxian/certificates/armacdev.p12 armacdev.p12
-  - security create-keychain -p $SIGN_DARWIN_KEYCHAIN_PASSWORD $SIGN_DARWIN_KEYCHAIN_NAME
-  - security default-keychain -s $SIGN_DARWIN_KEYCHAIN_NAME
-  - security unlock-keychain -p $SIGN_DARWIN_KEYCHAIN_PASSWORD $SIGN_DARWIN_KEYCHAIN_NAME
-  - security set-keychain-settings -t 3600 -u $SIGN_DARWIN_KEYCHAIN_NAME
-  - security import armacdev.cer -k $SIGN_DARWIN_KEYCHAIN_NAME -T /usr/bin/codesign
-  - security import armacdev.p12 -P $DEV_ID_APP_PASSWORD -k $SIGN_DARWIN_KEYCHAIN_NAME -T /usr/bin/codesign
+  - npm test
 
 script:
-  - npm test
-  - gulp pack:darwin64:dmg --prod --verbose
-  - gulp pack:darwin64:zip --prod --verbose
-  - gulp publish:github --verbose
+  - if [[ $TRAVIS_BRANCH == 'staging' ]]; then ./ciscripts/darwin/build_staging.sh; fi
+  - if [[ $TRAVIS_BRANCH == 'deploy' ]]; then ./ciscripts/darwin/build_deploy.sh; fi
 
 cache:
   directories:

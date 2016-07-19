@@ -1,5 +1,5 @@
-import {getAvailableDictionaries} from 'browser/utils/spellchecker';
-import languageCodes from 'browser/utils/language-codes';
+import {getAvailableDictionaries} from 'common/utils/spellchecker';
+import languageCodes from 'common/utils/language-codes';
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 import $ from 'browser/menus/expressions';
@@ -14,6 +14,16 @@ const availableLanguages = getAvailableDictionaries()
         languageCodes[langCode.replace('-', '_').split('_')[0]]
     };
   })
+  .filter((langObj) => langObj.name)
+  .filter((langObj, index, arr) => {
+    for (let i = index + 1; i < arr.length; i++) {
+      if (arr[i].name === langObj.name) {
+        return false;
+      }
+    }
+
+    return true;
+  })
   .sort((a, b) => {
     if (a.name < b.name) {
       return -1;
@@ -27,37 +37,28 @@ const availableLanguages = getAvailableDictionaries()
 export default {
   label: 'Edit',
   submenu: [{
-    label: 'Undo',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+Z',
     role: 'undo'
   }, {
-    label: 'Redo',
     allow: platform.isDarwin,
-    accelerator: 'Shift+Cmd+Z',
     role: 'redo'
   }, {
     type: 'separator',
     allow: platform.isDarwin
   }, {
-    label: 'Cut',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+X',
     role: 'cut'
   }, {
-    label: 'Copy',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+C',
     role: 'copy'
   }, {
-    label: 'Paste',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+V',
     role: 'paste'
   }, {
-    label: 'Select All',
     allow: platform.isDarwin,
-    accelerator: 'Cmd+A',
+    role: 'delete'
+  }, {
+    allow: platform.isDarwin,
     role: 'selectall'
   }, {
     type: 'separator',
@@ -66,6 +67,7 @@ export default {
     type: 'checkbox',
     label: 'Check &Spelling While Typing',
     accelerator: 'CmdOrCtrl+Alt+S',
+    needsWindow: true,
     click: $.all(
       $.sendToWebView('spell-checker', $.key('checked'), $.pref('spell-checker-auto-correct'), $.pref('spell-checker-language')),
       $.updateSibling('spell-checker-auto-correct', 'enabled', $.key('checked')),
@@ -79,6 +81,7 @@ export default {
     id: 'spell-checker-auto-correct',
     type: 'checkbox',
     label: '&Auto Correct Spelling Mistakes',
+    needsWindow: true,
     allow: false,
     click: $.all(
       $.sendToWebView('spell-checker', $.pref('spell-checker-check'), $.key('checked'), $.pref('spell-checker-language')),
@@ -91,11 +94,12 @@ export default {
   }, {
     id: 'spell-checker-language',
     label: 'Spell Checker Language',
-    submenu: availableLanguages.map(lang => ({
+    submenu: availableLanguages.map((lang) => ({
       type: 'radio',
       label: lang.name,
       langCode: lang.code,
       checked: spellCheckerLanguage === lang.code,
+      needsWindow: true,
       click: $.all(
         $.ifTrue(
           $.pref('spell-checker-check'),

@@ -1,6 +1,6 @@
-import app from 'app';
+import {app} from 'electron';
 
-import {getAvailableDictionaries} from 'browser/utils/spellchecker';
+import {getAvailableDictionaries} from 'common/utils/spellchecker';
 import platform from 'common/utils/platform';
 
 let availableLanguages = null;
@@ -13,7 +13,6 @@ const defaults = {
   'links-in-browser': true,
   'close-with-esc': false,
   'quit-behaviour-taught': false,
-  'raffle-code': null,
   'show-notifications-badge': true,
   'show-tray': platform.isWindows,
   'show-dock': true,
@@ -31,7 +30,7 @@ const defaults = {
   'zoom-level': 0
 };
 
-function get(key) {
+function get (key) {
   if (key === 'spell-checker-language') {
     const valueFn = defaults[key];
     if (typeof valueFn === 'function') {
@@ -47,7 +46,7 @@ function get(key) {
   return defaults[key];
 }
 
-function defaultSpellCheckerLanguage() {
+function defaultSpellCheckerLanguage () {
   let defaultLanguage = null;
 
   if (!availableLanguages) {
@@ -78,6 +77,18 @@ function defaultSpellCheckerLanguage() {
     defaultLanguage = null;
   }
 
+  // Try to use en
+  const langEn = validateLanguage('en');
+  if (langEn) {
+    return langEn;
+  }
+
+  // Try to use en-us
+  const langEnUs = validateLanguage('en_US');
+  if (langEnUs) {
+    return langEnUs;
+  }
+
   // Try to use the first available language
   if (availableLanguages.length) {
     return availableLanguages[0];
@@ -87,7 +98,7 @@ function defaultSpellCheckerLanguage() {
   return 'en_US';
 }
 
-function validateLanguage(lang) {
+function validateLanguage (lang) {
   if (availableLanguages.includes(lang)) {
     return lang;
   } else {

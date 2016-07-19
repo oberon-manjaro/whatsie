@@ -2,8 +2,8 @@ import prefs from 'common/utils/prefs';
 import {getUserId} from 'common/utils/analytics';
 
 const activeTheme = prefs.get('theme');
-const activeSpellCheckerLang = prefs.get('theme');
-const activeReleaseChannel = prefs.get('theme');
+const activeSpellCheckerLang = prefs.get('spell-checker-language');
+const activeReleaseChannel = prefs.get('updates-channel');
 const trackAnalytics = prefs.get('analytics-track');
 
 let piwikTracker = null;
@@ -16,7 +16,7 @@ if (global.manifest.dev) {
   log('setting up piwik');
 
   // Configure
-  window.piwikAsyncInit = function() {
+  window.piwikAsyncInit = function () {
     try {
       piwikTracker = window.Piwik.getTracker();
       piwikTracker.setDocumentTitle(document.title);
@@ -44,6 +44,6 @@ if (global.manifest.dev) {
   document.head.appendChild(scriptElem);
 }
 
-export function getTracker() {
+export function getTracker () {
   return piwikTracker;
 }

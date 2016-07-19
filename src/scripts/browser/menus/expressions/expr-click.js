@@ -1,16 +1,13 @@
-import dialog from 'dialog';
-import shell from 'shell';
-import app from 'app';
+import {app, shell} from 'electron';
 
 import * as piwik from 'browser/services/piwik';
-import raffle from 'browser/components/raffle';
 import prefs from 'browser/utils/prefs';
 
 /**
  * Call the handler for the check-for-update event.
  */
-export function cfuCheckForUpdate(informUser) {
-  return function() {
+export function cfuCheckForUpdate (informUser) {
+  return function () {
     global.application.autoUpdateManager.handleMenuCheckForUpdate(informUser);
   };
 }
@@ -18,8 +15,8 @@ export function cfuCheckForUpdate(informUser) {
 /**
  * Call the handler for the update-available event.
  */
-export function cfuUpdateAvailable() {
-  return function() {
+export function cfuUpdateAvailable () {
+  return function () {
     global.application.autoUpdateManager.handleMenuUpdateAvailable();
   };
 }
@@ -27,8 +24,8 @@ export function cfuUpdateAvailable() {
 /**
  * Call the handler for the update-downloaded event.
  */
-export function cfuUpdateDownloaded() {
-  return function() {
+export function cfuUpdateDownloaded () {
+  return function () {
     global.application.autoUpdateManager.handleMenuUpdateDownloaded();
   };
 }
@@ -36,8 +33,8 @@ export function cfuUpdateDownloaded() {
 /**
  * Reset the auto updater url (to use updated prefs).
  */
-export function resetAutoUpdaterUrl() {
-  return function() {
+export function resetAutoUpdaterUrl () {
+  return function () {
     global.application.autoUpdateManager.initFeedUrl();
   };
 }
@@ -45,8 +42,8 @@ export function resetAutoUpdaterUrl() {
 /**
  * Enable or disable automatic checks for update.
  */
-export function checkForUpdateAuto(valueExpr) {
-  return function() {
+export function checkForUpdateAuto (valueExpr) {
+  return function () {
     const check = valueExpr.apply(this, arguments);
     global.application.autoUpdateManager.setAutoCheck(check);
   };
@@ -55,8 +52,8 @@ export function checkForUpdateAuto(valueExpr) {
 /**
  * Quit the app.
  */
-export function appQuit() {
-  return function() {
+export function appQuit () {
+  return function () {
     app.quit();
   };
 }
@@ -64,65 +61,47 @@ export function appQuit() {
 /**
  * Open the url externally, in a browser.
  */
-export function openUrl(url) {
-  return function() {
+export function openUrl (url) {
+  return function () {
     shell.openExternal(url);
-  };
-}
-
-/**
- * Send a message to the browserWindow's webContents.
- */
-export function sendToWebContents(channel, ...valueExprs) {
-  return function(menuItem, browserWindow) {
-    if (browserWindow) {
-      const values = valueExprs.map(e => e.apply(this, arguments));
-      browserWindow.webContents.send(channel, ...values);
-    }
   };
 }
 
 /**
  * Send a message directly to the webview.
  */
-export function sendToWebView(channel, ...valueExprs) {
-  return function(menuItem, browserWindow) {
-    if (browserWindow) {
-      const values = valueExprs.map(e => e.apply(this, arguments));
-      browserWindow.webContents.send('fwd-webview', channel, ...values);
-    }
+export function sendToWebView (channel, ...valueExprs) {
+  return function (menuItem, browserWindow) {
+    const values = valueExprs.map((e) => e.apply(this, arguments));
+    browserWindow.webContents.send('fwd-webview', channel, ...values);
   };
 }
 
 /**
  * Reload the browser window.
  */
-export function reloadWindow() {
-  return function(menuItem, browserWindow) {
-    if (browserWindow) {
-      browserWindow.reload();
-    }
+export function reloadWindow () {
+  return function (menuItem, browserWindow) {
+    browserWindow.reload();
   };
 }
 
 /**
  * Reset the window's position and size.
  */
-export function resetWindow() {
-  return function(menuItem, browserWindow) {
-    if (browserWindow) {
-      const bounds = prefs.getDefault('window-bounds');
-      browserWindow.setSize(bounds.width, bounds.height, true);
-      browserWindow.center();
-    }
+export function resetWindow () {
+  return function (menuItem, browserWindow) {
+    const bounds = prefs.getDefault('window-bounds');
+    browserWindow.setSize(bounds.width, bounds.height, true);
+    browserWindow.center();
   };
 }
 
 /**
  * Show (and focus) the window.
  */
-export function showWindow() {
-  return function(menuItem, browserWindow) {
+export function showWindow () {
+  return function (menuItem, browserWindow) {
     if (browserWindow) {
       browserWindow.show();
     } else {
@@ -137,43 +116,47 @@ export function showWindow() {
 /**
  * Toggle whether the window is in full screen or not.
  */
-export function toggleFullScreen() {
-  return function(menuItem, browserWindow) {
-    if (browserWindow) {
-      const newState = !browserWindow.isFullScreen();
-      browserWindow.setFullScreen(newState);
-    }
+export function toggleFullScreen () {
+  return function (menuItem, browserWindow) {
+    const newState = !browserWindow.isFullScreen();
+    browserWindow.setFullScreen(newState);
   };
 }
 
 /**
  * Toggle the dev tools panel.
  */
-export function toggleDevTools() {
-  return function(menuItem, browserWindow) {
-    if (browserWindow) {
-      browserWindow.toggleDevTools();
-    }
+export function toggleDevTools () {
+  return function (menuItem, browserWindow) {
+    browserWindow.toggleDevTools();
+  };
+}
+
+/**
+ * Toggle the menu bar of the window.
+ */
+export function toggleMenuBar () {
+  return function (menuItem, browserWindow) {
+    const newState = !browserWindow.isMenuBarVisible();
+    browserWindow.setMenuBarVisibility(newState);
   };
 }
 
 /**
  * Whether the window should always appear on top.
  */
-export function floatOnTop(flagExpr) {
-  return function(menuItem, browserWindow) {
-    if (browserWindow) {
-      const flag = flagExpr.apply(this, arguments);
-      browserWindow.setAlwaysOnTop(flag);
-    }
+export function floatOnTop (flagExpr) {
+  return function (menuItem, browserWindow) {
+    const flag = flagExpr.apply(this, arguments);
+    browserWindow.setAlwaysOnTop(flag);
   };
 }
 
 /**
  * Show or hide the tray icon.
  */
-export function showInTray(flagExpr) {
-  return function() {
+export function showInTray (flagExpr) {
+  return function () {
     const show = flagExpr.apply(this, arguments);
     if (show) {
       global.application.trayManager.create();
@@ -186,8 +169,8 @@ export function showInTray(flagExpr) {
 /**
  * Show or hide the dock icon.
  */
-export function showInDock(flagExpr) {
-  return function() {
+export function showInDock (flagExpr) {
+  return function () {
     if (app.dock) {
       const show = flagExpr.apply(this, arguments);
       if (show) {
@@ -202,20 +185,20 @@ export function showInDock(flagExpr) {
 /**
  * Whether the app should launch automatically when the OS starts.
  */
-export function launchOnStartup(enabledExpr) {
-  return function() {
+export function launchOnStartup (enabledExpr) {
+  return function () {
     const enabled = enabledExpr.apply(this, arguments);
     if (enabled) {
       global.application.autoLauncher.enable()
         .then(() => log('auto launcher enabled'))
-        .catch(err => {
+        .catch((err) => {
           log('could not enable auto-launcher');
           logError(err);
         });
     } else {
       global.application.autoLauncher.disable()
         .then(() => log('auto launcher disabled'))
-        .catch(err => {
+        .catch((err) => {
           log('could not disable auto-launcher');
           logError(err);
         });
@@ -226,11 +209,11 @@ export function launchOnStartup(enabledExpr) {
 /**
  * If flag is false, the dock badge will be hidden.
  */
-export function hideDockBadge(flagExpr) {
-  return function() {
+export function hideDockBadge (flagExpr) {
+  return function () {
     const flag = flagExpr.apply(this, arguments);
-    if (!flag && app.dock && app.dock.setBadge) {
-      app.dock.setBadge('');
+    if (!flag) {
+      app.setBadgeCount(0);
     }
   };
 }
@@ -238,41 +221,12 @@ export function hideDockBadge(flagExpr) {
 /**
  * If flag is false, the taskbar badge will be hidden.
  */
-export function hideTaskbarBadge(flagExpr) {
-  return function(menuItem, browserWindow) {
-    if (browserWindow) {
-      const flag = flagExpr.apply(this, arguments);
-      if (!flag) {
-        browserWindow.setOverlayIcon(null, '');
-      }
+export function hideTaskbarBadge (flagExpr) {
+  return function (menuItem, browserWindow) {
+    const flag = flagExpr.apply(this, arguments);
+    if (!flag) {
+      browserWindow.setOverlayIcon(null, '');
     }
-  };
-}
-
-/**
- * Show a dialog with information about giveaways.
- */
-export function openRaffleDialog() {
-  const code = raffle.getCode();
-  return function() {
-    dialog.showMessageBox({
-      type: 'info',
-      buttons: ['OK', 'Join the giveaway'],
-      message: 'Your Raffle Code is: ' + code,
-      detail: [
-        'Don\'t know what this is about?',
-        '',
-        'From time to time, I organize giveaways in order to make the app more popular and give prizes to the users. The more people use my app, the happier I am! So if you\'d like to join the giveaway, click Join below.',
-        '',
-        'Note: giveaways happen regularly, but if there are none right now, please check back later. Good luck!'
-      ].join('\n')
-    }, function(response) {
-      if (response === 1) {
-        const url = global.manifest.raffleUrl;
-        log('user clicked "Join the giveaway", opening url', url);
-        shell.openExternal(url);
-      }
-    });
   };
 }
 
@@ -282,10 +236,40 @@ export const analytics = {
   /**
    * Track an event.
    */
-  trackEvent: function(...args) {
-    return function() {
+  trackEvent: (...args) => {
+    return function (menuItem, browserWindow) {
       piwik.getTracker().trackEvent(...args);
     };
   }
 
 };
+
+/**
+ * Restart the app in debug mode.
+ */
+export function restartInDebugMode () {
+  return function () {
+    const options = {
+      // without --no-console-logs, calls to console.log et al. trigger EBADF errors in the new process
+      args: [...process.argv.slice(1), '--debug', '--no-console-logs']
+    };
+
+    log('relaunching app', JSON.stringify(options));
+    app.relaunch(options);
+    app.exit(0);
+  };
+}
+
+/**
+ * Open the log file for easier debugging.
+ */
+export function openDebugLog () {
+  return function () {
+    if (global.__debug_file_log_path) {
+      log('opening log file with default app', global.__debug_file_log_path);
+      shell.openItem(global.__debug_file_log_path);
+    } else {
+      logError(new Error('global.__debug_file_log_path was falsy'));
+    }
+  };
+}

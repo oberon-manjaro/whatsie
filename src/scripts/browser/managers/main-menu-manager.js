@@ -1,5 +1,5 @@
-import Menu from 'menu';
 import EventEmitter from 'events';
+import {Menu} from 'electron';
 
 import AutoUpdater from 'browser/components/auto-updater';
 import {findItemById} from 'browser/menus/utils';
@@ -7,12 +7,12 @@ import template from 'browser/menus/main';
 
 class MainMenuManager extends EventEmitter {
 
-  constructor() {
+  constructor () {
     super();
     this.cfuVisibleItem = null;
   }
 
-  create() {
+  create () {
     if (!this.menu) {
       this.menu = Menu.buildFromTemplate(template());
       log('app menu created');
@@ -21,16 +21,16 @@ class MainMenuManager extends EventEmitter {
     }
   }
 
-  setDefault() {
+  setDefault () {
     if (this.menu) {
       Menu.setApplicationMenu(this.menu);
       log('app menu set');
     } else {
-      logError('menu not created');
+      logError(new Error('menu not created'));
     }
   }
 
-  setAutoUpdaterListeners() {
+  setAutoUpdaterListeners () {
     if (!this.cfuVisibleItem) {
       this.cfuVisibleItem = findItemById(this.menu.items, 'cfu-check-for-update');
     }
@@ -50,6 +50,16 @@ class MainMenuManager extends EventEmitter {
         this.cfuVisibleItem = findItemById(this.menu.items, itemId);
         this.cfuVisibleItem.visible = true;
       });
+    }
+  }
+
+  windowSpecificItemsEnabled (enabled, items = this.menu.items) {
+    for (let item of items) {
+      if (item.needsWindow) {
+        item.enabled = enabled;
+      } else if (item.submenu) {
+        this.windowSpecificItemsEnabled(enabled, item.submenu.items);
+      }
     }
   }
 

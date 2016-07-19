@@ -6,33 +6,42 @@ import filePaths from 'common/utils/file-paths';
 /**
  * @return the css of the theme
  */
-async function getThemeCss(theme) {
+async function getThemeCss (theme) {
   return await fs.readFileAsync(filePaths.getThemePath(theme), 'utf-8');
 }
 
 /**
  * @return the css of the file
  */
-async function getStyleCss(style) {
+async function getStyleCss (style) {
   return await fs.readFileAsync(filePaths.getStylePath(style), 'utf-8');
 }
 
 /**
  * @return the list of Hunspell dictionaries available in the given dir
  */
-function getDictionariesSync(dirPath) {
-  if (!fs.existsSync(dirPath)) {
+function getDictionariesSync (dirPath) {
+  if (!fs.statSyncNoException(dirPath)) {
     log('dictionaries path does not exist', dirPath);
     return [];
   }
 
   const dictionaries = fs.readdirSync(dirPath)
-    .filter(filename => path.extname(filename) == '.dic')
-    .filter(filename => fs.statSync(path.join(dirPath, filename)).isFile())
-    .map(filename => path.basename(filename, '.dic'));
+    .filter((filename) => path.extname(filename) === '.dic')
+    .filter((filename) => fs.statSync(path.join(dirPath, filename)).isFile())
+    .map((filename) => path.basename(filename, '.dic'));
 
   log('dictionaries in', dirPath, 'found:', dictionaries);
   return dictionaries;
+}
+
+/**
+ * @return the list of Hunspell dictionaries available in all the given dirs
+ */
+function getAllDictionariesSync (dirPaths) {
+  return dirPaths.reduce((acc, dirPath) => {
+    return acc.concat(getDictionariesSync(dirPath));
+  }, []);
 }
 
 /**
@@ -40,7 +49,7 @@ function getDictionariesSync(dirPath) {
  * If it's invalid, purge it and write it again.
  * If it already exists, it's left untouched.
  */
-async function replaceFile(filePath, writePromise) {
+async function replaceFile (filePath, writePromise) {
   try {
     await fs.accessAsync(filePath, fs.R_OK | fs.W_OK);
     const stats = await fs.lstatAsync(filePath);
@@ -62,7 +71,7 @@ async function replaceFile(filePath, writePromise) {
 /**
  * Check if the path exists, can be accessed and is a file.
  */
-async function isFileExists(filePath) {
+async function isFileExists (filePath) {
   try {
     await fs.accessAsync(filePath, fs.R_OK | fs.W_OK);
     const stats = await fs.lstatAsync(filePath);
@@ -76,6 +85,7 @@ export default {
   getThemeCss,
   getStyleCss,
   getDictionariesSync,
+  getAllDictionariesSync,
   replaceFile,
   isFileExists
 };

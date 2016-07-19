@@ -1,4 +1,5 @@
 beeper = require 'beeper'
+fs = require 'fs'
 
 gulp = require 'gulp'
 plumber = require 'gulp-plumber'
@@ -38,7 +39,9 @@ args = require './args'
 
   # Compile scripts
   gulp.task 'compile:' + dist + ':scripts', ['clean:build:' + dist], ->
-    excludeHeaderFilter = filter ['**/*', '!**/logger.js', '!**/init.js'], { restore: true }
+    loggerIgnore = fs.readFileSync('./src/.loggerignore', 'utf8')
+      .split('\n').filter((rule) -> !!rule).map((rule) -> '!' + rule.trim())
+    excludeHeaderFilter = filter ['**/*'].concat(loggerIgnore), {restore: true}
     sourceMapHeader = "if (process.type === 'browser') { require('source-map-support').install(); }"
     loggerHeader = [
       "var log = require('common/utils/logger').debugLogger(__filename);"
@@ -78,6 +81,11 @@ args = require './args'
     gulp.src './src/images/**/*'
       .pipe gulp.dest dir + '/images'
 
+  # Move dictionaries
+  gulp.task 'compile:' + dist + ':dicts', ['clean:build:' + dist], ->
+    gulp.src './src/dicts/**/*'
+      .pipe gulp.dest dir + '/dicts'
+
   # Move html files
   gulp.task 'compile:' + dist + ':html', ['clean:build:' + dist], ->
     gulp.src './src/html/**/*.html'
@@ -101,6 +109,7 @@ args = require './args'
     'compile:' + dist + ':scripts'
     'compile:' + dist + ':themes'
     'compile:' + dist + ':images'
+    'compile:' + dist + ':dicts'
     'compile:' + dist + ':html'
     'compile:' + dist + ':deps'
     'compile:' + dist + ':package'

@@ -1,15 +1,14 @@
-import BrowserWindow from 'browser-window';
+import {shell, BrowserWindow} from 'electron';
+import debounce from 'lodash.debounce';
 import EventEmitter from 'events';
 
-import debounce from 'lodash.debounce';
-import shell from 'shell';
-
+import filePaths from 'common/utils/file-paths';
 import platform from 'common/utils/platform';
 import prefs from 'browser/utils/prefs';
 
 class MainWindowManager extends EventEmitter {
 
-  constructor() {
+  constructor () {
     super();
     this.forceClose = false;
     this.updateInProgress = false;
@@ -17,11 +16,15 @@ class MainWindowManager extends EventEmitter {
     this.initialTitle = global.manifest.productName;
   }
 
-  setTrayManager(trayManager) {
+  setTrayManager (trayManager) {
     this.trayManager = trayManager;
   }
 
-  createWindow() {
+  setMenuManager (menuManager) {
+    this.menuManager = menuManager;
+  }
+
+  createWindow () {
     log('creating main window');
 
     let bounds = prefs.get('window-bounds');
@@ -35,16 +38,21 @@ class MainWindowManager extends EventEmitter {
       title: this.initialTitle,
       backgroundColor: '#f2f2f2',
       useContentSize: true,
-      minWidth: 355,
+      minWidth: 458,
       minHeight: 355,
       show: false
     };
+
+    // Fix Window icon on Linux
+    if (platform.isLinux) {
+      defaultOptions.icon = filePaths.getImagePath('windowIcon.png');
+    }
 
     const options = Object.assign(defaultOptions, bounds);
     this.window = new BrowserWindow(options);
   }
 
-  initWindow() {
+  initWindow () {
     // Replace the default user agent
     const cleanUA = this.getCleanUserAgent();
     this.window.webContents.setUserAgent(cleanUA);
@@ -52,9 +60,9 @@ class MainWindowManager extends EventEmitter {
     // Bind webContents events to local methods
     this.window.webContents.on('new-window', ::this.onNewWindow);
     this.window.webContents.on('will-navigate', ::this.onWillNavigate);
-    this.window.webContents.on('dom-ready', ::this.onDomReady);
 
     // Bind events to local methods
+    this.window.on('ready-to-show', ::this.onReadyToShow);
     this.window.on('enter-full-screen', ::this.onEnterFullScreen);
     this.window.on('leave-full-screen', ::this.onLeaveFullScreen);
     this.window.on('closed', ::this.onClosed);
@@ -84,14 +92,14 @@ class MainWindowManager extends EventEmitter {
   /**
    * Validate the window bounds by making sure they're not off-screen.
    */
-  windowBoundsAreValid(bounds) {
-    return bounds.x != -32000 && bounds.y != -32000;
+  windowBoundsAreValid (bounds) {
+    return bounds.x !== -32000 && bounds.y !== -32000;
   }
 
   /**
    * Called when the 'new-window' event is emitted.
    */
-  onNewWindow(event, url) {
+  onNewWindow (event, url) {
     // Open urls in an external browser
     if (prefs.get('links-in-browser')) {
       log('opening url externally', url);
@@ -105,7 +113,7 @@ class MainWindowManager extends EventEmitter {
   /**
    * Called when the 'will-navigate' event is emitted.
    */
-  onWillNavigate(event, url) {
+  onWillNavigate (event, url) {
     if (global.manifest.dev) {
       log('navigation not prevented (dev mode)', url);
     } else {
@@ -116,11 +124,11 @@ class MainWindowManager extends EventEmitter {
   }
 
   /**
-   * Called when the 'dom-ready' event is emitted.
+   * Called when the 'ready-to-show' event is emitted.
    */
-  onDomReady() {
+  onReadyToShow () {
     // Show the window
-    log('onDomReady');
+    log('ready-to-show');
     if (!this.startHidden && !this.window.isVisible()) {
       this.window.show();
     }
@@ -129,7 +137,7 @@ class MainWindowManager extends EventEmitter {
   /**
    * Called when the 'enter-full-screen' event is emitted.
    */
-  onEnterFullScreen() {
+  onEnterFullScreen () {
     if (platform.isLinux) {
       return; // this event isn't triggered correctly on linux
     }
@@ -140,7 +148,7 @@ class MainWindowManager extends EventEmitter {
   /**
    * Called when the 'leave-full-screen' event is emitted.
    */
-  onLeaveFullScreen() {
+  onLeaveFullScreen () {
     if (platform.isLinux) {
       return; // this event isn't triggered correctly on linux
     }
@@ -152,7 +160,7 @@ class MainWindowManager extends EventEmitter {
    * Called when the 'closed' event is emitted.
    * Remove the internal reference to the window.
    */
-  onClosed() {
+  onClosed () {
     log('onClosed');
     this.window = null;
     this.emit('closed');
@@ -161,22 +169,21 @@ class MainWindowManager extends EventEmitter {
   /**
    * Called when the 'close' event is emitted.
    */
-  onClose(event) {
-    // Just hide the window unless...
+  onClose (event) {
     log('onClose');
 
-    // The app is being updated
+    // The app is being updated, don't prevent closing
     if (this.updateInProgress) {
       return;
     }
 
-    // Or the window is force closed (app quitting)
-    if (platform.isDarwin && !this.forceClose) {
+    // Just hide the window on Darwin and Elementary OS
+    if (!this.forceClose && (platform.isDarwin || global.options.distro.isElementaryOS)) {
       event.preventDefault();
       this.window.hide();
     }
 
-    // Or the app is not running in the tray.
+    // Just hide the window if it's already running in the tray
     if (!this.forceClose && prefs.get('show-tray')) {
       event.preventDefault();
       this.window.hide();
@@ -195,10 +202,10 @@ class MainWindowManager extends EventEmitter {
   /**
    * Called when the 'focus' event is emitted.
    */
-  onFocus() {
+  onFocus () {
     log('onFocus');
 
-    // Forward this event to the webview.
+    // Forward this event to the webview
     this.window.webContents.send('call-webview-method', 'focus');
 
     // Validate window bounds
@@ -215,31 +222,39 @@ class MainWindowManager extends EventEmitter {
   /**
    * Called when the 'blur' event is emitted.
    */
-  onBlur() {
+  onBlur () {
     log('onBlur');
 
-    // Forward this event to the webview.
+    // Forward this event to the webview
     this.window.webContents.send('call-webview-method', 'blur');
   }
 
   /**
    * Called when the 'show' event is emitted.
    */
-  onShow() {
+  onShow () {
     log('onShow');
+    // Enable window specific menu items
+    if (this.menuManager) {
+      this.menuManager.windowSpecificItemsEnabled(true);
+    }
   }
 
   /**
    * Called when the 'hide' event is emitted.
    */
-  onHide() {
+  onHide () {
     log('onHide');
+    // Disable window specific menu items
+    if (this.menuManager) {
+      this.menuManager.windowSpecificItemsEnabled(false);
+    }
   }
 
   /**
    * Persist the current window's state.
    */
-  saveBounds() {
+  saveBounds () {
     if (this.window.isFullScreen()) {
       return;
     }
@@ -252,7 +267,7 @@ class MainWindowManager extends EventEmitter {
   /**
    * Remove identifiable information (e.g. app name) from the UA string.
    */
-  getCleanUserAgent() {
+  getCleanUserAgent () {
     return this.window.webContents.getUserAgent()
       .replace(new RegExp(global.manifest.productName + '/[\\S]*', 'g'), '')
       .replace(new RegExp('Electron/[\\S]*', 'g'), '')
@@ -262,7 +277,7 @@ class MainWindowManager extends EventEmitter {
   /**
    * Show and focus or create the main window.
    */
-  showOrCreate() {
+  showOrCreate () {
     if (this.window) {
       this.window.show();
     } else {
@@ -274,7 +289,7 @@ class MainWindowManager extends EventEmitter {
   /**
    * Append a suffix to the window title.
    */
-  suffixWindowTitle(suffix) {
+  suffixWindowTitle (suffix) {
     if (this.window) {
       this.window.setTitle(this.initialTitle + suffix);
     }

@@ -1,6 +1,6 @@
+import {app} from 'electron';
 import path from 'path';
 import del from 'del';
-import app from 'app';
 
 const paths = [
   path.join(app.getPath('desktop'), 'WhatsApp for Desktop.lnk'),
@@ -25,14 +25,14 @@ const paths = [
   path.join('C:', 'Program Files (x86)', 'Unofficial WhatsApp for Desktop')
 ];
 
-function check(callback) {
+function check (callback) {
   clean(callback, true);
 }
 
-function clean(callback, dryRun = false) {
-  del(paths, { force: true, dryRun: dryRun })
-    .catch(err => callback(err))
-    .then(paths => callback(null, paths));
+function clean (callback, dryRun = false) {
+  del((paths), {force: true, dryRun})
+    .catch((err) => callback(err))
+    .then((paths) => callback(null, paths));
 }
 
 export default {

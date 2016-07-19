@@ -5,21 +5,21 @@ import eventCategories from 'common/analytics/categories';
 import eventActions from 'common/analytics/actions';
 import eventNames from 'common/analytics/names';
 
-function anonymizeException(err) {
+function anonymizeException (err) {
   const app = require('common/electron/app').default;
   err.message = err.message.replace(app.getPath('home'), '<home>');
 }
 
-function trimLongPaths(err) {
-  const app = require('common/electron/app').default;
-  err.stack = err.stack
-    .split('\n')
-    .map(line => line.replace(/\/.+atom\.asar/, 'atom.asar'))
-    .map(line => line.replace(app.getAppPath(), 'app'))
-    .join('\n');
-}
+// function trimLongPaths (err) {
+//   const app = require('common/electron/app').default;
+//   err.stack = err.stack
+//     .split('\n')
+//     .map((line) => line.replace(/\/.+atom\.asar/, 'atom.asar'))
+//     .map((line) => line.replace(app.getAppPath(), 'app'))
+//     .join('\n');
+// }
 
-function namespaceOfFile(filename) {
+function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
   const appPath = path.join(app.getAppPath(), 'scripts') + '/';
 
@@ -34,7 +34,7 @@ function namespaceOfFile(filename) {
   return global.manifest.name + ':' + name;
 }
 
-function reportToPiwik(namespace, isFatal, err) {
+function reportToPiwik (namespace, isFatal, err) {
   const piwik = require('common/services/piwik').default.getTracker();
   if (piwik) {
     piwik.trackEvent(
@@ -46,11 +46,11 @@ function reportToPiwik(namespace, isFatal, err) {
   }
 }
 
-function reportToSentry(namespace, isFatal, err) {
+function reportToSentry (namespace, isFatal, err) {
   const sentry = require('common/services/sentry').default;
   if (sentry) {
     anonymizeException(err);
-    trimLongPaths(err);
+    // trimLongPaths(err);
 
     console.log('reporting to sentry:', err);
     sentry.captureException(err, {
@@ -59,17 +59,17 @@ function reportToSentry(namespace, isFatal, err) {
         trace: new Error().stack
       },
       tags: {
-        namespace: namespace
+        namespace
       }
-    }, function(result) {
+    }, function (result) {
       console.log('reported to sentry:', result);
     });
   }
 }
 
-export function debugLogger(filename) {
+export function debugLogger (filename) {
   let logger = null;
-  return function() {
+  return function () {
     if (!logger) {
       const debug = require('common/modules/debug').default;
       logger = debug(namespaceOfFile(filename));
@@ -80,19 +80,24 @@ export function debugLogger(filename) {
   };
 }
 
-export function errorLogger(filename, isFatal, skipReporting) {
+export function errorLogger (filename, isFatal) {
   let namespace = null;
-  return function(err) {
+  return function (err, skipReporting = false) {
     if (!namespace) {
       namespace = namespaceOfFile(filename);
     }
 
     if (!(err instanceof Error)) {
-      err = new Error(err);
+      if (global.options.dev) {
+        const fnName = isFatal ? 'logFatal' : 'logError';
+        throw new Error('the first parameter to ' + fnName + ' must be an Error');
+      } else {
+        err = new Error(err);
+      }
     }
 
     const browserLogger = require('common/utils/logger-browser').default;
-    browserLogger.printError(namespace, isFatal, util.format(err));
+    browserLogger.printError(namespace, isFatal, err.stack);
 
     if (!skipReporting) {
       reportToPiwik(namespace, isFatal, err);

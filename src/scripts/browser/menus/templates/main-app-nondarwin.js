@@ -4,11 +4,10 @@ import $ from 'browser/menus/expressions';
 import g from 'browser/menus/generator';
 
 const updatesChannel = prefs.get('updates-channel');
-const allowAutoLaunch = !global.options.portable
-  && (!platform.isLinux || updatesChannel == 'dev');
+const allowAutoLaunch = !global.options.portable && (!platform.isLinux || updatesChannel === 'dev');
 
 let versionSuffix = '';
-if (global.manifest.versionChannel != 'stable') {
+if (global.manifest.versionChannel !== 'stable') {
   versionSuffix = '-' + global.manifest.versionChannel;
 }
 
@@ -67,6 +66,20 @@ export default {
     g.appLaunchOnStartup(allowAutoLaunch),
     g.appLaunchHidden(allowAutoLaunch),
   {
+    type: 'separator'
+  }, {
+    label: 'Restart in Debug Mode',
+    allow: !global.options.debug,
+    click: $.restartInDebugMode()
+  }, {
+    label: 'Running in Debug Mode',
+    allow: global.options.debug,
+    enabled: false
+  }, {
+    label: 'Open Debug Log',
+    enabled: global.options.debug,
+    click: $.openDebugLog()
+  }, {
     type: 'separator'
   }, {
     label: '&Quit',
