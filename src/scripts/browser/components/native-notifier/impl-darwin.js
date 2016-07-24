@@ -1,8 +1,8 @@
-/* eslint-disable babel/new-cap */
 import $ from 'nodobjc';
 
 import BaseNativeNotifier from 'browser/components/native-notifier/base';
 
+/* eslint-disable babel/new-cap */
 class DarwinNativeNotifier extends BaseNativeNotifier {
 
   constructor () {
@@ -13,7 +13,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
 
     // Obj-C setup
     $.framework('Foundation');
-    const pool = $.NSAutoreleasePool('alloc')('init'); // eslint-disable-line no-unused-vars
+    this.pool = $.NSAutoreleasePool('alloc')('init');
 
     // Get the notification center
     this.center = $.NSUserNotificationCenter('defaultUserNotificationCenter');
@@ -54,7 +54,7 @@ class DarwinNativeNotifier extends BaseNativeNotifier {
       }
     }
 
-    log('didActivateNotification', payload);
+    log('didActivateNotification', JSON.stringify(payload));
     this.emit('notif-activated-' + identifier, payload);
     this.emit('notif-activated', payload);
   }

@@ -7,26 +7,20 @@ import eventNames from 'common/analytics/names';
 
 function anonymizeException (err) {
   const app = require('common/electron/app').default;
-  err.message = err.message.replace(app.getPath('home'), '<home>');
+  const homePath = RegExp.escape(app.getPath('home'));
+  const regExp = new RegExp(homePath, 'g');
+  err.message = err.message.replace(regExp, '<home>');
 }
-
-// function trimLongPaths (err) {
-//   const app = require('common/electron/app').default;
-//   err.stack = err.stack
-//     .split('\n')
-//     .map((line) => line.replace(/\/.+atom\.asar/, 'atom.asar'))
-//     .map((line) => line.replace(app.getAppPath(), 'app'))
-//     .join('\n');
-// }
 
 function namespaceOfFile (filename) {
   const app = require('common/electron/app').default;
-  const appPath = path.join(app.getAppPath(), 'scripts') + '/';
+  const appPath = path.join(app.getAppPath(), 'scripts') + path.sep;
 
-  const appPathNorm = path.posix.normalize(appPath);
-  const filenameNorm = path.posix.normalize(filename);
+  let name = filename
+    .replace(appPath, '')
+    .replace(/\\/g, '/')
+    .replace('.js', '');
 
-  let name = filenameNorm.replace(appPathNorm, '').replace('.js', '');
   if (name.startsWith('common/')) {
     name += ':' + process.type;
   }
@@ -50,8 +44,6 @@ function reportToSentry (namespace, isFatal, err) {
   const sentry = require('common/services/sentry').default;
   if (sentry) {
     anonymizeException(err);
-    // trimLongPaths(err);
-
     console.log('reporting to sentry:', err);
     sentry.captureException(err, {
       level: isFatal ? 'fatal' : 'error',
@@ -69,12 +61,15 @@ function reportToSentry (namespace, isFatal, err) {
 
 export function debugLogger (filename) {
   let logger = null;
+  let browserLogger = null;
   return function () {
     if (!logger) {
       const debug = require('common/modules/debug').default;
       logger = debug(namespaceOfFile(filename));
     }
-    const browserLogger = require('common/utils/logger-browser').default;
+    if (!browserLogger) {
+      browserLogger = require('common/utils/logger-browser').default;
+    }
     logger.log = browserLogger.printDebug;
     logger(util.format(...arguments));
   };
@@ -82,6 +77,7 @@ export function debugLogger (filename) {
 
 export function errorLogger (filename, isFatal) {
   let namespace = null;
+  let browserLogger = null;
   return function (err, skipReporting = false) {
     if (!namespace) {
       namespace = namespaceOfFile(filename);
@@ -96,10 +92,12 @@ export function errorLogger (filename, isFatal) {
       }
     }
 
-    const browserLogger = require('common/utils/logger-browser').default;
+    if (!browserLogger) {
+      browserLogger = require('common/utils/logger-browser').default;
+    }
     browserLogger.printError(namespace, isFatal, err.stack);
 
-    if (!skipReporting) {
+    if (!skipReporting && !global.options.debug) {
       reportToPiwik(namespace, isFatal, err);
       reportToSentry(namespace, isFatal, err);
     }
