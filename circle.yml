@@ -1,5 +1,5 @@
 # Prevent CircleCI from building this branch
 general:
   branches:
-    ignore:
-      - website
+    only:
+      - xxxxxxxxxxxxxxxxxxxx
