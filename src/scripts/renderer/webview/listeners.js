@@ -32,6 +32,33 @@ function createBadgeDataUrl (text) {
   return canvas.toDataURL();
 }
 
+function setUnreadCount (count) {
+  let badgeDataUrl;
+  const countDisplay = isNaN(count) || !count ? '' : '' + count;
+
+  if (platform.isWindows && countDisplay) {
+    badgeDataUrl = createBadgeDataUrl(countDisplay);
+  }
+
+  log('sending notif-count', countDisplay, !!badgeDataUrl || null);
+  ipcRenderer.send('notif-count', countDisplay, badgeDataUrl);
+}
+
+export function updateUnreadCount () {
+  const matches = /\(([\d]+)\)/.exec(webView.getTitle());
+  let parsed = parseInt(matches && matches[1], 10);
+
+  const countMuted = prefs.get('count-muted-chats');
+
+  if (!countMuted) {
+    webView.executeJavaScript('document.querySelectorAll(\'.icon-muted + .unread-count\').length', (result) => {
+      setUnreadCount(parsed - result);
+    });
+  } else {
+    setUnreadCount(parsed);
+  }
+}
+
 // Log console messages
 webView.addEventListener('console-message', function (event) {
   const msg = event.message.replace(/%c/g, '');
@@ -41,19 +68,7 @@ webView.addEventListener('console-message', function (event) {
 });
 
 // Listen for title changes to update the badge
-webView.addEventListener('page-title-updated', function () {
-  const matches = /\(([\d]+)\)/.exec(webView.getTitle());
-  const parsed = parseInt(matches && matches[1], 10);
-  const count = isNaN(parsed) || !parsed ? '' : '' + parsed;
-  let badgeDataUrl = null;
-
-  if (platform.isWindows && count) {
-    badgeDataUrl = createBadgeDataUrl(count);
-  }
-
-  log('sending notif-count', count, !!badgeDataUrl || null);
-  ipcRenderer.send('notif-count', count, badgeDataUrl);
-});
+webView.addEventListener('page-title-updated', updateUnreadCount);
 
 // Handle url clicks
 webView.addEventListener('new-window', function (event) {

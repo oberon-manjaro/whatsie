@@ -206,6 +206,12 @@ export function launchOnStartup (enabledExpr) {
   };
 }
 
+export function updateUnreadCount () {
+  return function (_, browserWindow) {
+    browserWindow.webContents.send('update-unread-count');
+  };
+}
+
 /**
  * If flag is false, the dock badge will be hidden.
  */
