@@ -12,7 +12,7 @@ A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.
 
 Whatsie is still in beta, so some features might not work properly. Bug reports and feature suggestions are welcome. Please check for updates here regularly in case the update process breaks and your installed version can't update by itself.
 
-> **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Whatsie) and let's chat!
+> **@devs:** If you want to help me improve, fix or maintain the app, [join me on Gitter](https://gitter.im/Aluxian/Whatsie) and let's chat!
 
 ![Whatsie Screenshot](./screenshot.png)
 
