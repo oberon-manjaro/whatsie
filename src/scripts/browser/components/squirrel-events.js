@@ -60,7 +60,8 @@ class SquirrelEvents {
 
       dialog.showMessageBox({
         type: 'error',
-        message: 'Error: ' + msg + filesDeletedMsg + originalErrMsg
+        message: 'Error: ' + msg + filesDeletedMsg + originalErrMsg,
+        buttons: ['OK']
       }, function () {});
     };
 
@@ -146,7 +147,8 @@ class SquirrelEvents {
   async teardownLeftoverUserData () {
     const userDataPath = app.getPath('userData');
     log('removing user data folder', userDataPath);
-    await del(userDataPath, {force: true}).then(log.bind(null, 'deleted'));
+    await del(path.join(userDataPath, '**'), {force: true})
+      .then((files) => log('deleted', JSON.stringify(files)));
   }
 
 }
