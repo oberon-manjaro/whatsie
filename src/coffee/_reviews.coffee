@@ -18,6 +18,10 @@ REVIEWS = [
     text: "<3",
     author: "Ruzzin"
   }, {
+    text: "It's really great and useful on my Ubuntu Linux. Hope to see some love from WhatsApp to this project.",
+    author: "Mohammad Rafigh",
+    link: "http://lostsemicolon.com"
+  }, {
     text: "It is one of the best app I have ever come across on the net for free.",
     author: "MC-KONAMI",
     link: "http://facebook.com/mike.eguabor"
