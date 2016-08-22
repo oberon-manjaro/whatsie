@@ -1,10 +1,10 @@
 git:
   depth: 10
 
-branches:
-  only:
-    - staging
-    - deploy
+# branches:
+#   only:
+#     - staging
+#     - deploy
 
 os:
   - osx
@@ -20,6 +20,7 @@ env:
     - SIGN_DARWIN_KEYCHAIN_PASSWORD=travis
 
 install:
+  - printenv
   - git clone https://github.com/creationix/nvm.git /tmp/.nvm
   - source /tmp/.nvm/nvm.sh
   - nvm install 5.0
