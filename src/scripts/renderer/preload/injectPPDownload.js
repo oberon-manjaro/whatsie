@@ -12,7 +12,8 @@ function _inject () {
     for (let mutation of mutations) {
       if (mutation.addedNodes.length === 1) {
         if (mutation.addedNodes[0].firstChild.className === 'drawer drawer-info') {
-          let avatar = document.querySelector('div.avatar');
+          let avatar = document.querySelector('div.drawer.drawer-info div.drawer-section-photo > div.avatar');
+          if (!avatar) return;
 
           avatar.onclick = () => {
             setTimeout(() => {
