@@ -34,7 +34,7 @@ function generateFileName (userName) {
   const min = prependZero(currentDate.getMinutes());
   const sec = prependZero(currentDate.getSeconds());
 
-  return `WhatsApp Profile Image ${userName} ${year}-${month}-${day} at ${hour}.${min}.${sec}.jpg`;
+  return `WhatsApp Profile Image ${userName} ${year}-${month}-${day} at ${hour}.${min}.${sec}.jpeg`;
 }
 
 function onDownloadClick (e) {
