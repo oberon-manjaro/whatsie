@@ -7,6 +7,7 @@ let availableLanguages = null;
 const defaults = {
   'analytics-track': true,
   'analytics-uid': null,
+  'exclude-muted-chats': false,
   'launch-startup': false,
   'launch-startup-hidden': true,
   'launch-quit': false,

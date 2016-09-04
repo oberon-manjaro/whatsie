@@ -110,7 +110,7 @@
   background: #333333 !important;
 }
 
-.new-group-search, .new-group-contacts, .drawer-section-main {
+.new-group-search, .new-group-contacts, .drawer-section-main, .block-compose {
   background: #333333;
 }
 
@@ -256,6 +256,11 @@ header.pane-chat-header {
 
 
 /* Chat bubble */
+
+/* Hide the tail since its just an image */
+.message-out>.tail-container, .message-in>.tail-container {
+  display: none;
+}
 
 .message-in, .context-in {
   background: #626262 !important;

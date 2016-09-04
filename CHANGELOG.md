@@ -1,3 +1,14 @@
+## [2.0.20-beta](https://github.com/Aluxian/Whatsie/tree/v2.0.20) (2016-04-09)
+
+[Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.19...v2.0.20) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.20)
+
+**General**
+
+- Improve theme Numix Dark.
+- Various fixes and improvements.
+- Add button to download profile images.
+- Add menu item to exclude muted messages from the notifications counter.
+
 ## [2.0.19-beta](https://github.com/Aluxian/Whatsie/tree/v2.0.19) (2016-24-07)
 
 [Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.18...v2.0.19) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.19)
@@ -15,6 +26,7 @@
 **Windows**
 
 - Fix tray using .png rather than .ico icons.
+- Fix crashes for some tray menu items.
 
 **Linux**
 

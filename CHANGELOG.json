@@ -1,4 +1,17 @@
 [{
+  "version": "2.0.20",
+  "channel": "beta",
+  "releasedAt": 1472996825354,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Improve theme Numix Dark.",
+      "Various fixes and improvements.",
+      "Add button to download profile images.",
+      "Add menu item to exclude muted messages from the notifications counter."
+    ]
+  }
+}, {
   "version": "2.0.19",
   "channel": "beta",
   "releasedAt": 1469345363345,

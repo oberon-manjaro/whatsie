@@ -12,7 +12,7 @@ A simple &amp; beautiful desktop client for [WhatsApp Web](https://web.whatsapp.
 
 Whatsie is still in beta, so some features might not work properly. Bug reports and feature suggestions are welcome. Please check for updates here regularly in case the update process breaks and your installed version can't update by itself.
 
-> **@devs:** If you're willing to help improve, fix or maintain the app, I can make you a collaborator to help me. [Join me on Gitter](https://gitter.im/Aluxian/Whatsie) and let's chat!
+> **@devs:** If you want to help me improve, fix or maintain the app, [join me on Gitter](https://gitter.im/Aluxian/Whatsie) and let's chat!
 
 ![Whatsie Screenshot](./screenshot.png)
 
@@ -68,8 +68,7 @@ You can also use `apt-get` (recommended):
 
 ```
 # Download my gpg key to make sure the deb you download is correct
-gpg --keyserver pool.sks-keyservers.net --recv-keys 1537994D
-gpg --export --armor 1537994D | sudo apt-key add -
+sudo apt-key adv --keyserver pool.sks-keyservers.net --recv 6DDA23616E3FE905FFDA152AE61DA9241537994D
 
 # Add my repository to your sources list (skip if you've done this already)
 # Replace <channel> with stable, beta or dev (pick stable if you're unsure)
