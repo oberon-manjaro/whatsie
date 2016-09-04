@@ -1,7 +1,15 @@
 import {ipcRenderer} from 'electron';
 
 import * as piwik from 'renderer/services/piwik';
+import {updateUnreadCount} from 'renderer/webview/listeners';
 import webView from 'renderer/webview';
+
+/**
+ * Trigger an update to count the unread messages again.
+ */
+ipcRenderer.on('update-unread-count', function () {
+  updateUnreadCount();
+});
 
 /**
  * Forward a message to the webview.

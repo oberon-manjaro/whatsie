@@ -1,7 +1,7 @@
 {
   "name": "whatsie",
   "productName": "Whatsie",
-  "version": "2.0.19",
+  "version": "2.0.20",
   "versionChannel": "beta",
   "description": "A simple & beautiful desktop client for WhatsApp Web.",
   "wvUrl": "https://web.whatsapp.com/",
@@ -57,7 +57,6 @@
   "authorName": "Alexandru Rosianu",
   "copyright": "Copyright © Alexandru Rosianu",
   "homepage": "https://whatsie.chat/",
-  "raffleUrl": "https://whatsie.chat/#share",
   "repository": {
     "type": "git",
     "url": "https://github.com/Aluxian/Whatsie.git"
@@ -70,7 +69,7 @@
   "sentry": {
     "dsn": "{{& SENTRY_DSN_PRIVATE }}"
   },
-  "electronVersion": "v1.2.8",
+  "electronVersion": "v1.3.5",
   "distrib": "unset",
   "portable": false,
   "buildNum": 0,
