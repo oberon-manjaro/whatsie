@@ -7,6 +7,7 @@ let availableLanguages = null;
 const defaults = {
   'analytics-track': true,
   'analytics-uid': null,
+  'exclude-muted-chats': false,
   'launch-startup': false,
   'launch-startup-hidden': true,
   'launch-quit': false,
@@ -14,7 +15,6 @@ const defaults = {
   'close-with-esc': false,
   'quit-behaviour-taught': false,
   'show-notifications-badge': true,
-  'count-muted-chats': true,
   'show-tray': platform.isWindows,
   'show-dock': true,
   'spell-checker-check': false,

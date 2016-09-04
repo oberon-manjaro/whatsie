@@ -208,8 +208,11 @@ export function launchOnStartup (enabledExpr) {
   };
 }
 
-export function updateUnreadCount () {
-  return function (_, browserWindow) {
+/**
+ * Trigger an update to count the unread messages again.
+ */
+export function updateUnreadMessagesCount () {
+  return function (menuItem, browserWindow) {
     browserWindow.webContents.send('update-unread-count');
   };
 }

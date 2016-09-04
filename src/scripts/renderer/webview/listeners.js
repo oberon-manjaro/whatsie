@@ -32,30 +32,30 @@ function createBadgeDataUrl (text) {
   return canvas.toDataURL();
 }
 
-function setUnreadCount (count) {
+function sendUnreadCount (count) {
+  const displayCount = (isNaN(count) || !count) ? '' : '' + count;
   let badgeDataUrl;
-  const countDisplay = isNaN(count) || !count ? '' : '' + count;
 
-  if (platform.isWindows && countDisplay) {
-    badgeDataUrl = createBadgeDataUrl(countDisplay);
+  if (platform.isWindows && displayCount) {
+    badgeDataUrl = createBadgeDataUrl(displayCount);
   }
 
-  log('sending notif-count', countDisplay, !!badgeDataUrl || null);
-  ipcRenderer.send('notif-count', countDisplay, badgeDataUrl);
+  log('sending notif-count', displayCount, !!badgeDataUrl || null);
+  ipcRenderer.send('notif-count', displayCount, badgeDataUrl);
 }
 
-export function updateUnreadCount () {
+function updateUnreadCount () {
   const matches = /\(([\d]+)\)/.exec(webView.getTitle());
-  let parsed = parseInt(matches && matches[1], 10);
+  const parsedCount = parseInt(matches && matches[1] || '0', 10);
+  const excludeMuted = prefs.get('exclude-muted-chats');
 
-  const countMuted = prefs.get('count-muted-chats');
-
-  if (!countMuted) {
-    webView.executeJavaScript('document.querySelectorAll(\'.icon-muted + .unread-count\').length', (result) => {
-      setUnreadCount(parsed - result);
+  if (excludeMuted) {
+    const code = "document.querySelectorAll('.icon-muted + .unread-count').length";
+    webView.executeJavaScript(code, (result) => {
+      sendUnreadCount(parsedCount - result);
     });
   } else {
-    setUnreadCount(parsed);
+    sendUnreadCount(parsedCount);
   }
 }
 
@@ -68,7 +68,9 @@ webView.addEventListener('console-message', function (event) {
 });
 
 // Listen for title changes to update the badge
-webView.addEventListener('page-title-updated', updateUnreadCount);
+webView.addEventListener('page-title-updated', () => {
+  updateUnreadCount();
+});
 
 // Handle url clicks
 webView.addEventListener('new-window', function (event) {
@@ -143,4 +145,6 @@ document.addEventListener('DOMContentLoaded', function () {
   loadingSplashDiv.style.opacity = 1;
 });
 
-export default webView;
+export {
+  updateUnreadCount
+};
