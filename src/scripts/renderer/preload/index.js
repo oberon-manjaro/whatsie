@@ -5,3 +5,4 @@ require(initPath).inject('webview');
 require('renderer/preload/events');
 require('renderer/preload/listeners');
 require('renderer/preload/notification');
+require('renderer/preload/injectPPDownload').inject();
