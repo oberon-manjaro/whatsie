@@ -1,4 +1,15 @@
 [{
+  "version": "2.1.0",
+  "channel": "stable",
+  "releasedAt": 1472988363216,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Improve theme Numix Dark.",
+      "Various fixes and improvements."
+    ]
+  }
+}, {
   "version": "2.0.19",
   "channel": "beta",
   "releasedAt": 1469345363345,
