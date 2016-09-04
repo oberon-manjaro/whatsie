@@ -58,5 +58,14 @@ export default {
     parse: $.all(
       $.setLocal('checked', $.pref('show-notifications-badge'))
     )
+  }, {
+    type: 'checkbox',
+    label: 'Count Unread Messages in &Muted Chats',
+    needsWindow: true,
+    click: $.all(
+      $.setPref('count-muted-chats', $.key('checked')),
+      $.updateUnreadCount()
+    ),
+    parse: $.setLocal('checked', $.pref('count-muted-chats'))
   }]
 };

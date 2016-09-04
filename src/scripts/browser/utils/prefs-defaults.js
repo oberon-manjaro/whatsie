@@ -14,6 +14,7 @@ const defaults = {
   'close-with-esc': false,
   'quit-behaviour-taught': false,
   'show-notifications-badge': true,
+  'count-muted-chats': true,
   'show-tray': platform.isWindows,
   'show-dock': true,
   'spell-checker-check': false,

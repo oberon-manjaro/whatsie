@@ -2,6 +2,11 @@ import {ipcRenderer} from 'electron';
 
 import * as piwik from 'renderer/services/piwik';
 import webView from 'renderer/webview';
+import {updateUnreadCount} from 'renderer/webview/listeners';
+
+ipcRenderer.on('update-unread-count', function (event) {
+  updateUnreadCount();
+});
 
 /**
  * Forward a message to the webview.

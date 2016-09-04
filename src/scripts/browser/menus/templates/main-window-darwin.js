@@ -81,6 +81,15 @@ export default {
       $.showInDock($.key('checked'))
     )
   }, {
+    id: 'count-unread',
+    type: 'checkbox',
+    label: 'Count Unread Messages in Muted Chats',
+    click: $.all(
+      $.setPref('count-muted-chats', $.key('checked')),
+      $.updateUnreadCount()
+    ),
+    parse: $.setLocal('checked', $.pref('count-muted-chats'))
+  }, {
     type: 'separator'
   }, {
     role: 'minimize'
