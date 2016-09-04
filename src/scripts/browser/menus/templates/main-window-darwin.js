@@ -34,14 +34,30 @@ export default {
     click: $.setPref('links-in-browser', $.key('checked')),
     parse: $.setLocal('checked', $.pref('links-in-browser'))
   }, {
+    type: 'separator'
+  }, {
     type: 'checkbox',
     label: 'Notifications Badge in Dock',
     click: $.all(
       $.setPref('show-notifications-badge', $.key('checked')),
+      $.updateSibling('exclude-muted-chats', 'enabled', $.key('checked')),
+      $.updateUnreadMessagesCount(),
       $.hideDockBadge($.key('checked'))
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('show-notifications-badge'))
+    )
+  }, {
+    id: 'exclude-muted-chats',
+    type: 'checkbox',
+    label: 'Exclude Muted Chats',
+    click: $.all(
+      $.setPref('exclude-muted-chats', $.key('checked')),
+      $.updateUnreadMessagesCount()
+    ),
+    parse: $.all(
+      $.setLocal('enabled', $.pref('show-notifications-badge')),
+      $.setLocal('checked', $.pref('exclude-muted-chats'))
     )
   }, {
     type: 'separator'

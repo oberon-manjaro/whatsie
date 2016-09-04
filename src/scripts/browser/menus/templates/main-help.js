@@ -64,7 +64,7 @@ export default {
   }, {
     label: '&Email Developer',
     click: $.all(
-      $.openUrl('mailto:me@aluxian.com'),
+      $.openUrl('mailto:whatsie@aluxian.com'),
       $.analytics.trackEvent(
         eventCategories['Menu'],
         eventActions['Open Link'],

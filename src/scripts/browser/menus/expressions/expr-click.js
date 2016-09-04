@@ -209,6 +209,15 @@ export function launchOnStartup (enabledExpr) {
 }
 
 /**
+ * Trigger an update to count the unread messages again.
+ */
+export function updateUnreadMessagesCount () {
+  return function (menuItem, browserWindow) {
+    browserWindow.webContents.send('update-unread-count');
+  };
+}
+
+/**
  * If flag is false, the dock badge will be hidden.
  */
 export function hideDockBadge (flagExpr) {

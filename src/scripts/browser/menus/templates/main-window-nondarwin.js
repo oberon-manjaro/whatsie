@@ -53,10 +53,25 @@ export default {
     needsWindow: true,
     click: $.all(
       $.setPref('show-notifications-badge', $.key('checked')),
+      $.updateSibling('exclude-muted-chats', 'enabled', $.key('checked')),
+      $.updateUnreadMessagesCount(),
       platform.isLinux ? $.hideDockBadge($.key('checked')) : $.hideTaskbarBadge($.key('checked'))
     ),
     parse: $.all(
       $.setLocal('checked', $.pref('show-notifications-badge'))
+    )
+  }, {
+    id: 'exclude-muted-chats',
+    type: 'checkbox',
+    label: 'Exclude &Muted Chats',
+    needsWindow: true,
+    click: $.all(
+      $.setPref('exclude-muted-chats', $.key('checked')),
+      $.updateUnreadMessagesCount()
+    ),
+    parse: $.all(
+      $.setLocal('enabled', $.pref('show-notifications-badge')),
+      $.setLocal('checked', $.pref('exclude-muted-chats'))
     )
   }]
 };
