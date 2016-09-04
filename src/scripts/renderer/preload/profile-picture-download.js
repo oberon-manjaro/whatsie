@@ -103,7 +103,7 @@ function attachMenuObserver () {
   observer.observe(drawerPane, {childList: true});
 }
 
-// Inject after the DOM is loaded
+// Inject after the page is loaded
 window.addEventListener('load', function () {
   log('document loaded');
 
