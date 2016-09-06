@@ -1,3 +1,11 @@
+## [2.1.0](https://github.com/Aluxian/Whatsie/tree/v2.1.0) (2016-06-09)
+
+[Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.20...v2.1.0) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.1.0)
+
+**General**
+
+- Various fixes and improvements.
+
 ## [2.0.20-beta](https://github.com/Aluxian/Whatsie/tree/v2.0.20) (2016-04-09)
 
 [Full Changelog](https://github.com/Aluxian/Whatsie/compare/v2.0.19...v2.0.20) &bull; [Download](https://github.com/Aluxian/Whatsie/releases/tag/v2.0.20)
