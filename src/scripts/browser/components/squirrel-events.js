@@ -94,7 +94,7 @@ class SquirrelEvents {
     log('checking for WAFD leftovers');
     wafdCleaner.check(function (err, leftovers) {
       if (err) {
-        logError(err);
+        logError(err, true);
       } else if (leftovers && leftovers.length) {
         dialog.showMessageBox({
           type: 'question',

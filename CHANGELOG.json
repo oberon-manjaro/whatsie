@@ -1,4 +1,14 @@
 [{
+  "version": "2.1.0",
+  "channel": "stable",
+  "releasedAt": 1473142433854,
+  "urgency": "low",
+  "changes": {
+    "General": [
+      "Various fixes and improvements."
+    ]
+  }
+}, {
   "version": "2.0.20",
   "channel": "beta",
   "releasedAt": 1472996825354,
