@@ -36,7 +36,7 @@
     "babel-eslint": "6.1.2",
     "coffeelint": "1.15.7",
     "eslint": "3.4.0",
-    "eslint-config-standard": "6.0.0",
+    "eslint-config-standard": "5.3.5",
     "eslint-plugin-babel": "3.3.0",
     "eslint-plugin-promise": "2.0.1",
     "eslint-plugin-standard": "2.0.0",
