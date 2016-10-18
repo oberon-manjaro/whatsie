@@ -258,7 +258,7 @@ header.pane-chat-header {
 /* Chat bubble */
 
 /* Hide the tail since its just an image */
-.message-out>.tail-container, .message-in>.tail-container {
+.tail-container {
   display: none;
 }
 
